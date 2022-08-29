@@ -47,6 +47,15 @@ export const CafeIndividual = ( {
         console.log('muestra detalles café')
     }
 
+
+    const handleMas = () => {
+        console.log('aumentar cantidad');
+    }
+
+    const handleMenos = () => {
+        console.log('disminuir cantidad');
+    }
+
     return (
 
     <TouchableOpacity
@@ -77,8 +86,8 @@ export const CafeIndividual = ( {
                                     position: 'absolute',
                                     top: 5,
                                     left: 50,
-                                    width: windowWidth * 0.20,
-                                    height: windowWidth * 0.20,
+                                    width: windowWidth * 0.18,
+                                    height: windowWidth * 0.18,
                                     borderTopRightRadius: 10,
                                     borderBottomLeftRadius: 7,
                                     opacity: 0.5,
@@ -93,12 +102,14 @@ export const CafeIndividual = ( {
                             <View style={{ flexDirection: 'row', alignItems: 'center'}}>
                                 <TouchableOpacity
                                     activeOpacity={ 0.6 }
+                                    onPress={ handleMenos }
                                 >
                                     <Ionicons name='caret-back-outline' size={35} color='#808000'/>
                                 </TouchableOpacity>
                                 <Text style={{ fontSize: 35 }}>{ cantidad }</Text>
                                 <TouchableOpacity
                                     activeOpacity={ 0.6 }
+                                    onPress={ handleMas }
                                 >
                                     <Ionicons name='caret-forward-outline' size={35} color='#808000'/>
                                 </TouchableOpacity>
@@ -166,6 +177,7 @@ const styles = StyleSheet.create({
     },
     contenedorNombreCafe : {
         flex: 4,
+        justifyContent: 'space-between',
         marginTop: 5,
         marginLeft: 10
     },

@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { FlatList, View} from 'react-native';
+import { FlatList, Text, TouchableOpacity, View} from 'react-native';
 import { CafeIndividual } from '../components/CafeIndividual';
 import { AuthContext } from '../context/AuthContext';
 import { ProductContext } from '../context/ProductContext';
@@ -22,6 +22,23 @@ export const ListadoCafes = () => {
             <Text>{ user?.uid }</Text> */}
             {/* <Text>{ productos }</Text> */}
 
+            <TouchableOpacity style={{
+                    position: 'absolute',
+                    zIndex: 9999,
+                    backgroundColor: '#9ACD32',
+                    height: 50,
+                    width: 50,
+                    bottom: 30,
+                    right: 5,
+                    borderRadius: 100,
+                    justifyContent: 'center',
+                    alignItems: 'center'
+                }}>
+                <View>
+                    <Text style={{ fontWeight: 'bold' }}>OK</Text>
+                </View>
+            </TouchableOpacity>
+
             <FlatList 
                 data={ productos }
                 renderItem={ ( {item} ) => (
@@ -41,6 +58,8 @@ export const ListadoCafes = () => {
                 keyExtractor={ item => String(item.id) }
                 showsVerticalScrollIndicator={ false }
             />
+
+            
             
 
         </View>
