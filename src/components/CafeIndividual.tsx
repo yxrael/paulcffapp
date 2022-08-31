@@ -44,7 +44,11 @@ export const CafeIndividual = ( {
         //   // oferta: oferta, negocio: establecimiento, url: url, testNegocio
         //   oferta: oferta, negocio
         // } );
-        console.log('muestra detalles café')
+        console.log('muestra café')
+    }
+
+    const muestraDetalles = () => {
+        console.log('muestra detalles');
     }
 
 
@@ -61,6 +65,7 @@ export const CafeIndividual = ( {
     <TouchableOpacity
         activeOpacity={ 0.8 }
         onPress={ muestraCafe }
+        onLongPress={ muestraDetalles }
     >
         <View style={{ }}>
         <LinearGradient 
