@@ -5,11 +5,12 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import { LoginScreen } from '../screens/LoginScreen';
 import { Ajustes } from '../screens/Ajustes';
 import { MiCuenta } from '../screens/MiCuenta';
-import { ListadoCafes } from '../screens/ListadoCafes';
+import { ListadoCafesAmerica } from '../screens/ListadoCafesAmerica';
 import { MisPedidos } from '../screens/MisPedidos';
 import { useNavigation } from '@react-navigation/native';
 import { AuthContext } from '../context/AuthContext';
 import { Text, TouchableOpacity, View } from 'react-native';
+import { ListadoCafesTabs } from './ListadoCafesTabs';
 
 const Drawer = createDrawerNavigator();
 
@@ -34,7 +35,7 @@ export const MyDrawer = () => {
         drawerContent={ (  ) => <MenuInterno /> } 
     >
 
-      <Drawer.Screen name="MrChava" component={ListadoCafes} />
+      <Drawer.Screen name="MrChava" component={ListadoCafesTabs} />
       <Drawer.Screen name="Ajustes" component={Ajustes} />
       <Drawer.Screen name="LoginScreen" component={LoginScreen} />
       <Drawer.Screen name="MiCuenta" component={MiCuenta} />

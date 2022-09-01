@@ -6,7 +6,7 @@ import { collection, getDocs } from "firebase/firestore";
 
 import {StyleSheet, Text, View} from 'react-native';
 import { AuthContext } from '../context/AuthContext';
-import { ListadoCafes } from './ListadoCafes';
+import { ListadoCafesAmerica } from './ListadoCafesAmerica';
 import { LoadingScreen } from './LoadingScreen';
 import { LoginScreen } from './LoginScreen';
 import { ProductContext } from '../context/ProductContext';

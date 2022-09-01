@@ -9,10 +9,13 @@ import { LoginScreen } from './LoginScreen';
 
 //v31.08
 
-export const ListadoCafes = () => {
+export const ListadoCafesAfrica = () => {
 
     const { user, status } = useContext(AuthContext);
     const { productos } = useContext(ProductContext);
+
+    const listaAfrica = productos.filter( cafe => cafe.continente === 'AFRICA' && cafe.disponible === true && cafe.descafeinado === false);
+
 
     if ( status !== 'authenticated'){
         return (
@@ -81,7 +84,7 @@ export const ListadoCafes = () => {
             
 
             <FlatList 
-                data={ productos }
+                data={ listaAfrica }
                 renderItem={ ( {item} ) => (
                 <CafeIndividual 
                     nombre={ item.nombre }
