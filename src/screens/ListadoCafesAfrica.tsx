@@ -101,6 +101,7 @@ export const ListadoCafesAfrica = () => {
                 />)}
                 keyExtractor={ item => String(item.id) }
                 showsVerticalScrollIndicator={ false }
+                ListFooterComponent={ <View style={{height: 200}}/>}
             />
 
             

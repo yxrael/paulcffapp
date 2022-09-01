@@ -80,8 +80,6 @@ export const ListadoCafesAmerica = () => {
             <Text>{ user?.uid }</Text> */}
             {/* <Text>{ productos }</Text> */}
 
-            
-
             <FlatList 
                 data={ listaAmerica }
                 renderItem={ ( {item} ) => (
@@ -100,6 +98,7 @@ export const ListadoCafesAmerica = () => {
                 />)}
                 keyExtractor={ item => String(item.id) }
                 showsVerticalScrollIndicator={ false }
+                ListFooterComponent={ <View style={{height: 200}}/>}
             />
 
             

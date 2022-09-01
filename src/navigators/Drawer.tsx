@@ -9,8 +9,10 @@ import { ListadoCafesAmerica } from '../screens/ListadoCafesAmerica';
 import { MisPedidos } from '../screens/MisPedidos';
 import { useNavigation } from '@react-navigation/native';
 import { AuthContext } from '../context/AuthContext';
-import { Text, TouchableOpacity, View } from 'react-native';
+import { Image, Text, TouchableOpacity, View } from 'react-native';
 import { ListadoCafesTabs } from './ListadoCafesTabs';
+import { Background } from '../components/Background';
+import { color } from 'react-native-reanimated';
 
 const Drawer = createDrawerNavigator();
 
@@ -26,13 +28,32 @@ export const MyDrawer = () => {
     //     )
     // }  
 
+    // const Cabecera = () => {
+    //     return (
+    //         <Image 
+    //             source={ require('../../assets/logoChava.png')}
+    //             style={{ backgroundColor: 'white', height: 50, width: 300}}
+    //         />
+    //     )
+    // }
+
   return (
     <Drawer.Navigator
+    
         screenOptions={{
+
             drawerPosition: 'left',
             // drawerType: width >= 768 ? 'permanent' : 'front'
+            headerStyle: {
+                height: 30
+            },
+            // header: () => <Cabecera/>
+            headerTitleStyle: {
+                fontSize: 18
+            }
         }}
         drawerContent={ (  ) => <MenuInterno /> } 
+        
     >
 
       <Drawer.Screen name="MrChava" component={ListadoCafesTabs} />
