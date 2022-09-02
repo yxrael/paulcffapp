@@ -1,3 +1,4 @@
+import { useNavigation } from '@react-navigation/native';
 import React, { useContext } from 'react';
 import { FlatList, Text, TouchableOpacity, View} from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
@@ -5,14 +6,18 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import { CafeIndividual } from '../components/CafeIndividual';
 import { AuthContext } from '../context/AuthContext';
 import { ProductContext } from '../context/ProductContext';
+import { Producto } from '../interfaces/appInterfaces';
 import { LoginScreen } from './LoginScreen';
 
 //v31.08
 
-export const ListadoCafesAmerica = () => {
+
+
+export const ListadoCafesAmerica = ( ) => {
 
     const { user, status } = useContext(AuthContext);
     const { productos } = useContext(ProductContext);
+    const navigation = useNavigation<any>();
 
     const listaAmerica = productos.filter( cafe => cafe.continente === 'AMERICA' && cafe.disponible === true && cafe.descafeinado === false);
 
@@ -24,6 +29,7 @@ export const ListadoCafesAmerica = () => {
 
     const handleNext = () => {
         console.log('pagina siguiente');
+        navigation.navigate('RevisaPedido');
     }
 
     return (
@@ -95,6 +101,7 @@ export const ListadoCafesAmerica = () => {
                     puntos={ item.puntos }
                     rutaURL={ item.rutaURL }
                     disponible={ item.disponible }
+                    id={ item.id}
                 />)}
                 keyExtractor={ item => String(item.id) }
                 showsVerticalScrollIndicator={ false }

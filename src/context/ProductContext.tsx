@@ -9,7 +9,8 @@ type ProductContextProps = {
     productos: Producto[],
     pedidos: Pedido[],
     status: 'checking' | 'loaded' | 'not-loaded',
-    loadProductosYPedidos: () => void
+    loadProductosYPedidos: () => void,
+    cambiaCantidadCafeEnPedido: ( id: number, cantidad: number ) => void
     // errorMessage: string;
     // // token: string | null;
     // user: Usuario | null;
@@ -96,6 +97,19 @@ export const ProductProvider = ({ children}: any) => {
 
     };
 
+    const cambiaCantidadCafeEnPedido = ( id: number, cantidad: number ) => {
+        const cantidadModificada = stateProductos.productos.map( item => {
+            if( item.id === id){
+                item.cantidad = cantidad;
+            }
+            return item
+        })
+        dispatch( {
+            ...stateProductos,
+            productos: cantidadModificada
+        } )
+    }
+
 
     // const signUp= async ( { nombre, correo, password, nif }: RegisterData ) => {
 
@@ -139,7 +153,8 @@ export const ProductProvider = ({ children}: any) => {
     return (
         <ProductContext.Provider value={{
             ...stateProductos,
-            loadProductosYPedidos
+            loadProductosYPedidos,
+            cambiaCantidadCafeEnPedido
         }}>
             { children }
         </ProductContext.Provider>

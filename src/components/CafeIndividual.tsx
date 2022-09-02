@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import {Dimensions, Image, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import { ProductContext } from '../context/ProductContext';
 import { FadeInImage } from './FadeInImage';
 // import { Producto } from '../context/ProductContext';
 
@@ -36,8 +37,11 @@ export const CafeIndividual = ( {
         precio, 
         proceso, 
         puntos, 
-        rutaURL, 
+        rutaURL,
+        id,
         height = ((windowWidth * 0.9) * 0.35)}: Props ) => {
+
+    const { cambiaCantidadCafeEnPedido } = useContext( ProductContext );
 
     const muestraCafe = () => {
         // navigation.navigate('DetalleOferta', {
@@ -53,11 +57,15 @@ export const CafeIndividual = ( {
 
 
     const handleMas = () => {
-        console.log('aumentar cantidad');
+        cantidad ++;
+        cambiaCantidadCafeEnPedido( id!, cantidad );
     }
 
     const handleMenos = () => {
-        console.log('disminuir cantidad');
+        if(cantidad > 0){
+            cantidad --;
+            cambiaCantidadCafeEnPedido( id!, cantidad );
+        }
     }
 
     return (
@@ -166,7 +174,7 @@ const styles = StyleSheet.create({
         backgroundColor: '#b1d8f0',
         borderRadius: 15,
         marginBottom: 5,
-        width: windowWidth * 0.9,
+        width: windowWidth * 0.85,
         height: (windowWidth * 0.9) * 0.35,
         justifyContent: 'space-between',
         overflow: 'hidden',

@@ -1,3 +1,4 @@
+import { useNavigation } from '@react-navigation/native';
 import React, { useContext } from 'react';
 import { FlatList, Text, TouchableOpacity, View} from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
@@ -13,6 +14,7 @@ export const ListadoCafesAsia = () => {
 
     const { user, status } = useContext(AuthContext);
     const { productos } = useContext(ProductContext);
+    const navigation = useNavigation<any>();
 
     const listaAsia = productos.filter( cafe => cafe.continente === 'ASIA' && cafe.disponible === true && cafe.descafeinado === false);
 
@@ -25,6 +27,7 @@ export const ListadoCafesAsia = () => {
 
     const handleNext = () => {
         console.log('pagina siguiente');
+        navigation.navigate('RevisaPedido');
     }
 
     return (
@@ -98,6 +101,7 @@ export const ListadoCafesAsia = () => {
                     puntos={ item.puntos }
                     rutaURL={ item.rutaURL }
                     disponible={ item.disponible }
+                    id={ item.id}
                 />)}
                 keyExtractor={ item => String(item.id) }
                 showsVerticalScrollIndicator={ false }

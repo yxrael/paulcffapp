@@ -1,3 +1,4 @@
+import { useNavigation } from '@react-navigation/native';
 import React, { useContext } from 'react';
 import { FlatList, Text, TouchableOpacity, View} from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
@@ -13,6 +14,7 @@ export const ListadoCafesAfrica = () => {
 
     const { user, status } = useContext(AuthContext);
     const { productos } = useContext(ProductContext);
+    const navigation = useNavigation<any>();
 
     const listaAfrica = productos.filter( cafe => cafe.continente === 'AFRICA' && cafe.disponible === true && cafe.descafeinado === false);
 
@@ -25,6 +27,7 @@ export const ListadoCafesAfrica = () => {
 
     const handleNext = () => {
         console.log('pagina siguiente');
+        navigation.navigate('RevisaPedido');
     }
 
     return (
@@ -70,7 +73,11 @@ export const ListadoCafesAfrica = () => {
                 elevation: 3,
                 }}>
             <View>
-            <Ionicons name='chevron-forward-outline' size={35} color='#808000'/>
+            <Ionicons 
+                name='chevron-forward-outline' 
+                size={35} 
+                color='#808000'
+                />
 
                 {/* <Text style={{ fontWeight: 'bold' }}>OK</Text> */}
             </View>
@@ -98,6 +105,7 @@ export const ListadoCafesAfrica = () => {
                     puntos={ item.puntos }
                     rutaURL={ item.rutaURL }
                     disponible={ item.disponible }
+                    id={ item.id}
                 />)}
                 keyExtractor={ item => String(item.id) }
                 showsVerticalScrollIndicator={ false }

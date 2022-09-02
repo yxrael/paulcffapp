@@ -1,24 +1,27 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import { createDrawerNavigator, DrawerContentScrollView } from '@react-navigation/drawer';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
 import { LoginScreen } from '../screens/LoginScreen';
 import { Ajustes } from '../screens/Ajustes';
 import { MiCuenta } from '../screens/MiCuenta';
-import { ListadoCafesAmerica } from '../screens/ListadoCafesAmerica';
+// import { ListadoCafesAmerica } from '../screens/ListadoCafesAmerica';
 import { MisPedidos } from '../screens/MisPedidos';
 import { useNavigation } from '@react-navigation/native';
 import { AuthContext } from '../context/AuthContext';
-import { Image, Text, TouchableOpacity, View } from 'react-native';
+import { Text, TouchableOpacity, View } from 'react-native';
 import { ListadoCafesTabs } from './ListadoCafesTabs';
-import { Background } from '../components/Background';
-import { color } from 'react-native-reanimated';
+import { ProductContext } from '../context/ProductContext';
+import { ListadoCafesStack } from './ListadoCafesStack';
+// import { Background } from '../components/Background';
+// import { color } from 'react-native-reanimated';
 
 const Drawer = createDrawerNavigator();
 
 export const MyDrawer = () => {
 
-    const { status } = useContext( AuthContext );
+
+    // const { status } = useContext( AuthContext );
 
     // { 
     //     ( status !== 'authenticated')
@@ -56,7 +59,8 @@ export const MyDrawer = () => {
         
     >
 
-      <Drawer.Screen name="MrChava" component={ListadoCafesTabs} />
+      {/* <Drawer.Screen name="MrChava" component={ListadoCafesTabs} /> */}
+      <Drawer.Screen name="MrChava" component={ListadoCafesStack} />
       <Drawer.Screen name="Ajustes" component={Ajustes} />
       <Drawer.Screen name="LoginScreen" component={LoginScreen} />
       <Drawer.Screen name="MiCuenta" component={MiCuenta} />
@@ -71,7 +75,7 @@ export const MyDrawer = () => {
 const MenuInterno = (  ) => {
 
     const navigation = useNavigation<any>();
-    const { status } = useContext( AuthContext );
+    // const { status } = useContext( AuthContext );
 
     return (
 
