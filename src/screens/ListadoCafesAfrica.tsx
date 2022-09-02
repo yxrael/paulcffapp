@@ -24,11 +24,11 @@ export const ListadoCafesAfrica = () => {
           );
 
 
-    if ( status !== 'authenticated'){
-        return (
-            <LoginScreen />
-        )
-    }
+    // if ( status !== 'authenticated'){
+    //     return (
+    //         <LoginScreen />
+    //     )
+    // }
 
     const handleNext = () => {
         navigation.navigate('RevisaPedido');

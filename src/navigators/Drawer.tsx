@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { createDrawerNavigator, DrawerContentScrollView } from '@react-navigation/drawer';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
@@ -13,6 +13,7 @@ import { Text, TouchableOpacity, View } from 'react-native';
 import { ListadoCafesTabs } from './ListadoCafesTabs';
 import { ProductContext } from '../context/ProductContext';
 import { ListadoCafesStack } from './ListadoCafesStack';
+import { checkUsuario } from '../firebase/providers';
 // import { Background } from '../components/Background';
 // import { color } from 'react-native-reanimated';
 
@@ -20,25 +21,14 @@ const Drawer = createDrawerNavigator();
 
 export const MyDrawer = () => {
 
+    checkUsuario();
+    const { status } = useContext(AuthContext);
 
-    // const { status } = useContext( AuthContext );
-
-    // { 
-    //     ( status !== 'authenticated')
-    //     && 
-    //     (
-    //         <LoginScreen />
-    //     )
-    // }  
-
-    // const Cabecera = () => {
-    //     return (
-    //         <Image 
-    //             source={ require('../../assets/logoChava.png')}
-    //             style={{ backgroundColor: 'white', height: 50, width: 300}}
-    //         />
-    //     )
-    // }
+    if ( status !== 'authenticated'){
+        return (
+            <LoginScreen />
+        )
+    }
 
   return (
     <Drawer.Navigator
@@ -59,7 +49,6 @@ export const MyDrawer = () => {
         
     >
 
-      {/* <Drawer.Screen name="MrChava" component={ListadoCafesTabs} /> */}
       <Drawer.Screen name="MrChava" component={ListadoCafesStack} />
       <Drawer.Screen name="Ajustes" component={Ajustes} />
       <Drawer.Screen name="LoginScreen" component={LoginScreen} />
@@ -69,8 +58,6 @@ export const MyDrawer = () => {
     </Drawer.Navigator>
   );
 }
-
-
 
 const MenuInterno = (  ) => {
 
@@ -105,11 +92,7 @@ const MenuInterno = (  ) => {
 
                 <TouchableOpacity 
                     style={{ flexDirection: 'row'}}
-                    onPress={ () => 
-                        // ( status === 'authenticated')
-                        // ? navigation.navigate('MiCuenta')
-                        // : navigation.navigate('LoginScreen')
-                        navigation.navigate('MiCuenta')
+                    onPress={ () => navigation.navigate('MiCuenta')
                     }     
                 >
                     <Ionicons 
@@ -132,7 +115,6 @@ const MenuInterno = (  ) => {
 
                 <TouchableOpacity 
                     style={{ flexDirection: 'row'}}
-                    // onPress={ () => navigation.navigate('Navigator')}    
                     onPress={ () => navigation.goBack() }    
                 >
                     <Ionicons 

@@ -26,11 +26,11 @@ export const ListadoCafesAmerica = ( ) => {
         // && cafe.tipoCliente === user?.photoURL
         );
 
-    if ( status !== 'authenticated'){
-        return (
-            <LoginScreen />
-        )
-    }
+    // if ( status !== 'authenticated'){
+    //     return (
+    //         <LoginScreen />
+    //     )
+    // }
 
     const handleNext = () => {
         navigation.navigate('RevisaPedido');

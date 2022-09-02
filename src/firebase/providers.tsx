@@ -1,4 +1,4 @@
-import { signInWithEmailAndPassword } from 'firebase/auth';
+import { onAuthStateChanged, signInWithEmailAndPassword } from 'firebase/auth';
 import { LoginData } from '../interfaces/appInterfaces';
 import { FirebaseAuth, FirebaseDB } from './config';
 import { collection, getDocs } from "firebase/firestore";
@@ -20,8 +20,25 @@ export const signInWithGoogle = async( { correo, password }: LoginData) => {
         // console.log(error)
         return { ok: false, error }
     }
-
 } 
+
+export const checkUsuario =  () => {
+
+    onAuthStateChanged(FirebaseAuth, (user) => {
+        if (user) {
+          // User is signed in, see docs for a list of available properties
+          // https://firebase.google.com/docs/reference/js/firebase.User
+          const uid = user.uid;
+          // ...
+        } else {
+          // User is signed out
+          // ...
+        }
+      });
+}
+
+
+
 
 export const cargaProductos = async () => {
 

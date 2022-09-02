@@ -53,13 +53,13 @@ export const AuthProvider = ({ children}: any) => {
 
     const checkUser = async () => {
 
-        if( state.user === ''){
-            return dispatch({ ...state, status: 'not-authenticated' })
-        }
+        // if( state.user === ''){
+        //     return dispatch({ ...state, status: 'not-authenticated' })
+        // }
 
-        if( state.user !== ''){
-            return dispatch({ ...state, status: 'authenticated' })
-        }
+        // if( state.user !== ''){
+        //     return dispatch({ ...state, status: 'authenticated' })
+        // }
 
         // if( state.status === 'not-authenticated'){
 
