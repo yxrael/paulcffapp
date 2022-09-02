@@ -117,6 +117,9 @@ export const DetallePedidoIndividual = ( {
                 <TouchableOpacity
                     activeOpacity={ 0.8 }
                     onPress={ handleBorrar }
+                    style={{
+                        zIndex: 9999
+                    }}
                 >
                     <View style={ styles.botonBorrar }>
                         <Ionicons
