@@ -16,7 +16,12 @@ export const ListadoCafesAsia = () => {
     const { productos } = useContext(ProductContext);
     const navigation = useNavigation<any>();
 
-    const listaAsia = productos.filter( cafe => cafe.continente === 'ASIA' && cafe.disponible === true && cafe.descafeinado === false);
+    const listaAsia = productos.filter( 
+        cafe => cafe.continente === 'ASIA' 
+        && cafe.disponible === true 
+        && cafe.descafeinado === false
+        // && cafe.tipoCliente === user?.photoURL
+        );
 
 
     if ( status !== 'authenticated'){
@@ -26,7 +31,6 @@ export const ListadoCafesAsia = () => {
     }
 
     const handleNext = () => {
-        console.log('pagina siguiente');
         navigation.navigate('RevisaPedido');
     }
 
@@ -101,6 +105,7 @@ export const ListadoCafesAsia = () => {
                     puntos={ item.puntos }
                     rutaURL={ item.rutaURL }
                     disponible={ item.disponible }
+                    tipoCliente={ item.tipoCliente }
                     id={ item.id}
                 />)}
                 keyExtractor={ item => String(item.id) }

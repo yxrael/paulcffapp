@@ -19,7 +19,12 @@ export const ListadoCafesAmerica = ( ) => {
     const { productos } = useContext(ProductContext);
     const navigation = useNavigation<any>();
 
-    const listaAmerica = productos.filter( cafe => cafe.continente === 'AMERICA' && cafe.disponible === true && cafe.descafeinado === false);
+    const listaAmerica = productos.filter( 
+        cafe => cafe.continente === 'AMERICA' 
+        && cafe.disponible === true 
+        && cafe.descafeinado === false
+        // && cafe.tipoCliente === user?.photoURL
+        );
 
     if ( status !== 'authenticated'){
         return (
@@ -28,7 +33,6 @@ export const ListadoCafesAmerica = ( ) => {
     }
 
     const handleNext = () => {
-        console.log('pagina siguiente');
         navigation.navigate('RevisaPedido');
     }
 
@@ -75,16 +79,14 @@ export const ListadoCafesAmerica = ( ) => {
                 elevation: 3,
                 }}>
             <View>
-            <Ionicons name='chevron-forward-outline' size={35} color='#808000'/>
-
-                {/* <Text style={{ fontWeight: 'bold' }}>OK</Text> */}
+                <Ionicons name='chevron-forward-outline' size={35} color='#808000'/>
             </View>
         </TouchableOpacity>
 
         <View style={{ marginHorizontal: 20}}>
             {/* <Text>LISTADO CAFES</Text>
             <Text>{ user?.uid }</Text> */}
-            {/* <Text>{ productos }</Text> */}
+            
 
             <FlatList 
                 data={ listaAmerica }
@@ -101,16 +103,13 @@ export const ListadoCafesAmerica = ( ) => {
                     puntos={ item.puntos }
                     rutaURL={ item.rutaURL }
                     disponible={ item.disponible }
+                    tipoCliente={ item.tipoCliente }
                     id={ item.id}
                 />)}
                 keyExtractor={ item => String(item.id) }
                 showsVerticalScrollIndicator={ false }
                 ListFooterComponent={ <View style={{height: 200}}/>}
             />
-
-            
-            
-
         </View>
     </View>
     );

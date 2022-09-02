@@ -15,7 +15,7 @@ interface Props {
     disponible: boolean,
     fileName?: string,
     id?: number,
-    infoExtra: string,
+    infoExtra?: string,
     precio: string,
     proceso: string,
     puntos: string,
@@ -27,7 +27,7 @@ interface Props {
 
 const windowWidth = Dimensions.get('window').width;
 
-export const CafeIndividual = ( {
+export const DetallePedidoIndividual = ( {
         cantidad, 
         nombre, 
         pais, 
@@ -38,17 +38,14 @@ export const CafeIndividual = ( {
         proceso, 
         puntos, 
         rutaURL,
-        tipoCliente,
         id,
-        height = ((windowWidth * 0.9) * 0.35)}: Props ) => {
+        height = ((windowWidth * 0.9) * 0.25)}: Props ) => {
 
-    const { cambiaCantidadCafeEnPedido } = useContext( ProductContext );
+
+    const { eliminaCafeEnPedido } = useContext( ProductContext );
+    const totalProducto = parseInt(precio) * cantidad
 
     const muestraCafe = () => {
-        // navigation.navigate('DetalleOferta', {
-        //   // oferta: oferta, negocio: establecimiento, url: url, testNegocio
-        //   oferta: oferta, negocio
-        // } );
         console.log('muestra café')
     }
 
@@ -56,17 +53,9 @@ export const CafeIndividual = ( {
         console.log('muestra detalles');
     }
 
-
-    const handleMas = () => {
-        cantidad ++;
-        cambiaCantidadCafeEnPedido( id!, cantidad );
-    }
-
-    const handleMenos = () => {
-        if(cantidad > 0){
-            cantidad --;
-            cambiaCantidadCafeEnPedido( id!, cantidad );
-        }
+    const handleBorrar = () => {
+        console.log('borra producto');
+        eliminaCafeEnPedido( id! )
     }
 
     return (
@@ -88,31 +77,18 @@ export const CafeIndividual = ( {
                     <View style={{ flex: 6, flexDirection: 'row'}}>
 
                         <View style={ styles.contenedorNombreCafe }>
-
-                            <View style={{ flexDirection: 'row', justifyContent: 'flex-start'}}>
-                                <Ionicons
-                                    name='radio-button-on-outline'
-                                    size={ 20}
-                                    style={{
-                                        color: ( tipoCliente === 'verde') ? 'green' : 'brown'
-                                    }}
-                                />
-                                <Text style={ styles.nombre }>{ nombre }</Text>
-                            </View>
-
                             
-                            {/* <Text style={ {} }>{ nombre }</Text> */}
+                            <Text style={ styles.nombre }>{ nombre }</Text>
                             <Text style={ styles.pais }>{ pais }</Text>
-                            <Text style={ styles.pais }>{ tipoCliente }</Text>
-                            {/* <Text style={ styles.proceso }>{ proceso }</Text> */}
+
                             {
                                 ( descafeinado === true ) && 
                                 <FadeInImage
                                     uri={ 'https://intl.swisswater.com/wp-content/uploads/2012/12/logo-large.png' }
                                     style={{ 
                                     position: 'absolute',
-                                    top: 5,
-                                    left: 50,
+                                    top: 1,
+                                    left: 40,
                                     width: windowWidth * 0.18,
                                     height: windowWidth * 0.18,
                                     borderTopRightRadius: 10,
@@ -124,58 +100,42 @@ export const CafeIndividual = ( {
                             }
 
                         </View >
+
                         <View style={ styles.contenedorPrecioCantidad }>
-
-                            <View style={{ flexDirection: 'row', alignItems: 'center'}}>
-                                <TouchableOpacity
-                                    activeOpacity={ 0.6 }
-                                    onPress={ handleMenos }
-                                >
-                                    <Ionicons name='caret-back-outline' size={35} color='#808000'/>
-                                </TouchableOpacity>
-                                <Text style={{ fontSize: 35 }}>{ cantidad }</Text>
-                                <TouchableOpacity
-                                    activeOpacity={ 0.6 }
-                                    onPress={ handleMas }
-                                >
-                                    <Ionicons name='caret-forward-outline' size={35} color='#808000'/>
-                                </TouchableOpacity>
+                            <View style={{ flexDirection: 'row', alignItems: 'center'}}>        
+                                <Text style={{ fontSize: 20, fontWeight: '800' }}>{ cantidad } kg</Text>    
                             </View>
-
-                            
-                            <Text style={{ fontSize: 15, fontWeight: '800' }}>{ precio } €/ kg</Text>
+                            <Text style={{ fontSize: 15 }}>{ totalProducto } €</Text>
                         </View>
                     </View>
-
-                <View style={ styles.contenedorMatices }>
-                    <Text style={ styles.textoMatices }>{infoExtra}</Text>
-                </View>
 
             </View>
 
             {/* envuelve a #3 */}
             <View style={{ flex: 2}}>
 
+                <TouchableOpacity
+                    activeOpacity={ 0.8 }
+                    onPress={ handleBorrar }
+                >
+                    <View style={ styles.botonBorrar }>
+                        <Ionicons
+                            name='trash-outline'
+                            style={ styles.iconoBotonBorrar }
+                        />
+
+                    </View>
+                </TouchableOpacity>
+
                 <Text style={ styles.proceso }>{ proceso }</Text>
 
                 <View style={{ flex: 2, flexDirection: 'column', alignSelf: 'flex-end', justifyContent: 'flex-end' }}>
 
-                <View style={{...styles.fondoPuntos, }}>
-                    <Text style={ styles.textoPuntos }>{ puntos }</Text>
-                </View>
-
-
                 <View style={{...styles.rotuladoCategoria, }}>
                     <Text style={ {...styles.categoria } }>{ continente }</Text>
-                    {/* <Text style={{} }>{ pais }</Text> */}
                 </View>   
                 </View>
             </View>
-
-            {/* <Image 
-                source={ require('../../assets/logoasempro.png')}
-                style={ styles.imagenFondo }
-            /> */}
 
         </LinearGradient>
         </View>
@@ -187,9 +147,9 @@ const styles = StyleSheet.create({
     contenedor: {
         backgroundColor: '#b1d8f0',
         borderRadius: 15,
-        marginBottom: 5,
+        marginBottom: 2,
         width: windowWidth * 0.85,
-        height: (windowWidth * 0.9) * 0.35,
+        height: (windowWidth * 0.9) * 0.25,
         justifyContent: 'space-between',
         overflow: 'hidden',
         shadowColor: "#000",
@@ -200,7 +160,7 @@ const styles = StyleSheet.create({
         shadowOpacity: 0.25,
         shadowRadius: 3.84,
         elevation: 5,
-        marginTop: 15
+        marginTop: 10
     },
     contenedorNombreCafe : {
         flex: 4,
@@ -275,6 +235,21 @@ const styles = StyleSheet.create({
         right: -40,
         bottom: -2,
         opacity: 0.3
+    },
+    botonBorrar: {
+        position: 'absolute',
+        height: 30,
+        width: 30, 
+        backgroundColor: 'red',
+        borderRadius: 100,
+        top: 25,
+        right: 5,
+        alignItems: 'center',
+        justifyContent: 'center'
+    },
+    iconoBotonBorrar: {
+        fontSize: 20,
+        color: 'white'
     }
 });
 

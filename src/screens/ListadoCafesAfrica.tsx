@@ -16,7 +16,12 @@ export const ListadoCafesAfrica = () => {
     const { productos } = useContext(ProductContext);
     const navigation = useNavigation<any>();
 
-    const listaAfrica = productos.filter( cafe => cafe.continente === 'AFRICA' && cafe.disponible === true && cafe.descafeinado === false);
+    const listaAfrica = productos.filter(
+         cafe => cafe.continente === 'AFRICA'
+          && cafe.disponible === true 
+          && cafe.descafeinado === false
+        //   && cafe.tipoCliente === user?.photoURL
+          );
 
 
     if ( status !== 'authenticated'){
@@ -26,7 +31,6 @@ export const ListadoCafesAfrica = () => {
     }
 
     const handleNext = () => {
-        console.log('pagina siguiente');
         navigation.navigate('RevisaPedido');
     }
 
@@ -105,6 +109,7 @@ export const ListadoCafesAfrica = () => {
                     puntos={ item.puntos }
                     rutaURL={ item.rutaURL }
                     disponible={ item.disponible }
+                    tipoCliente={ item.tipoCliente }
                     id={ item.id}
                 />)}
                 keyExtractor={ item => String(item.id) }

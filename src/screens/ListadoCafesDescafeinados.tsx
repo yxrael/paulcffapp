@@ -16,7 +16,11 @@ export const ListadoCafesDescafeinados = () => {
     const { productos } = useContext(ProductContext);
     const navigation = useNavigation<any>();
 
-    const listaDescafeinados = productos.filter( cafe => cafe.descafeinado === true && cafe.disponible === true );
+    const listaDescafeinados = productos.filter( 
+        cafe => cafe.descafeinado === true 
+        && cafe.disponible === true 
+        // && cafe.tipoCliente === user?.photoURL
+        );
 
 
     if ( status !== 'authenticated'){
@@ -26,7 +30,6 @@ export const ListadoCafesDescafeinados = () => {
     }
 
     const handleNext = () => {
-        console.log('pagina siguiente');
         navigation.navigate('RevisaPedido');
     }
 
@@ -101,6 +104,7 @@ export const ListadoCafesDescafeinados = () => {
                     puntos={ item.puntos }
                     rutaURL={ item.rutaURL }
                     disponible={ item.disponible }
+                    tipoCliente={ item.tipoCliente }
                     id={ item.id}
                 />)}
                 keyExtractor={ item => String(item.id) }
