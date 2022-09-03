@@ -2,6 +2,14 @@ import { onAuthStateChanged, signInWithEmailAndPassword } from 'firebase/auth';
 import { LoginData } from '../interfaces/appInterfaces';
 import { FirebaseAuth, FirebaseDB } from './config';
 import { collection, getDocs } from "firebase/firestore";
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
+interface UsuarioStorage {
+    displayName: string | null, 
+    email: string | null,
+    photoURL: string | null,
+    uid: string | null
+}
 
 
 export const signInWithGoogle = async( { correo, password }: LoginData) => {
@@ -10,6 +18,12 @@ export const signInWithGoogle = async( { correo, password }: LoginData) => {
 
         const userCredential = await signInWithEmailAndPassword(FirebaseAuth, correo, password);
         const {displayName, email, photoURL, uid } = userCredential.user;
+
+        const usuarioRegistrado: UsuarioStorage = {
+            displayName, email, photoURL, uid
+        };
+
+        storeData( usuarioRegistrado )
 
         return {
             ok: true,
@@ -21,6 +35,18 @@ export const signInWithGoogle = async( { correo, password }: LoginData) => {
         return { ok: false, error }
     }
 } 
+
+const storeData = async (usuarioRegistrado: UsuarioStorage) => {
+    console.log( JSON.stringify(usuarioRegistrado))
+    try {
+      const jsonValue = JSON.stringify(usuarioRegistrado)
+    // const jsonValue = 'storage test';
+      await AsyncStorage.setItem('@usuario', jsonValue)
+    } catch (e) {
+      // saving error
+      console.log(e);
+    }
+  }
 
 export const checkUsuario =  () => {
 

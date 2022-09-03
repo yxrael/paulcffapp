@@ -1,5 +1,6 @@
 import React, { useContext, useEffect } from 'react';
 import { Alert, Keyboard, KeyboardAvoidingView, Platform, Text, TextInput, TouchableOpacity, View} from 'react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Background } from '../components/Background';
 import { WhiteLogo } from '../components/WhiteLogo';
 import { AuthContext } from '../context/AuthContext';
@@ -19,6 +20,14 @@ export const LoginScreen = ( { navigation }: any) => {
      });
 
      useEffect(() => {
+       const usuarioRegistrado = getData();
+
+       console.log('from storage');
+       console.log( usuarioRegistrado );
+     }, [])
+     
+
+     useEffect(() => {
        if(errorMessage.length === 0) return;
 
         // onChange( '', 'email');
@@ -35,14 +44,28 @@ export const LoginScreen = ( { navigation }: any) => {
         ] 
         );
 
-        
-
      }, [errorMessage]);    
 
      const onLogin = () => {
         Keyboard.dismiss();
         signIn({ correo: email, password });
      }
+
+     
+    const getData = async () => {
+        try {
+        const jsonValue = await AsyncStorage.getItem('@usuario')
+        return jsonValue != null ? JSON.parse(jsonValue) : null;
+        // if(jsonValue !== null) {
+        //     // value previously stored
+        //     return jsonValue
+        //   }
+        } catch(e) {
+        // error reading value
+        console.log(e);
+        }
+    }
+  
 
     return (
         <>
