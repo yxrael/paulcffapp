@@ -19,6 +19,8 @@ export const signInWithGoogle = async( { correo, password }: LoginData) => {
         const userCredential = await signInWithEmailAndPassword(FirebaseAuth, correo, password);
         const {displayName, email, photoURL, uid } = userCredential.user;
 
+        
+
         const usuarioRegistrado: UsuarioStorage = {
             displayName, email, photoURL, uid
         };
@@ -37,6 +39,7 @@ export const signInWithGoogle = async( { correo, password }: LoginData) => {
 } 
 
 const storeData = async (usuarioRegistrado: UsuarioStorage) => {
+    console.log( usuarioRegistrado );
     console.log( JSON.stringify(usuarioRegistrado))
     try {
       const jsonValue = JSON.stringify(usuarioRegistrado)

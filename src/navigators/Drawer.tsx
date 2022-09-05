@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { createDrawerNavigator, DrawerContentScrollView } from '@react-navigation/drawer';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
@@ -14,6 +14,7 @@ import { ListadoCafesTabs } from './ListadoCafesTabs';
 import { ProductContext } from '../context/ProductContext';
 import { ListadoCafesStack } from './ListadoCafesStack';
 import { checkUsuario } from '../firebase/providers';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 // import { Background } from '../components/Background';
 // import { color } from 'react-native-reanimated';
 
@@ -28,6 +29,31 @@ export const MyDrawer = () => {
         return (
             <LoginScreen />
         )
+    }
+
+    
+    useEffect(() => {
+        const usuarioRegistrado = getData();
+ 
+        console.log('from storage');
+        console.log( usuarioRegistrado );
+      }, [])
+
+      const getData = async () => {
+        try {
+        const jsonValue = await AsyncStorage.getItem('@usuario');
+        console.log('getdate');
+        console.log(jsonValue);
+        console.log(JSON.parse(jsonValue!));
+        return jsonValue != null ? JSON.parse(jsonValue) : null;
+        // if(jsonValue !== null) {
+        //     // value previously stored
+        //     return jsonValue
+        //   }
+        } catch(e) {
+        // error reading value
+        console.log(e);
+        }
     }
 
   return (

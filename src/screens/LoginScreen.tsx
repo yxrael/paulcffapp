@@ -19,12 +19,12 @@ export const LoginScreen = ( { navigation }: any) => {
         password: ''
      });
 
-     useEffect(() => {
-       const usuarioRegistrado = getData();
+    //  useEffect(() => {
+    //    const usuarioRegistrado = getData();
 
-       console.log('from storage');
-       console.log( usuarioRegistrado );
-     }, [])
+    //    console.log('from storage');
+    //    console.log( usuarioRegistrado );
+    //  }, [])
      
 
      useEffect(() => {
@@ -54,7 +54,10 @@ export const LoginScreen = ( { navigation }: any) => {
      
     const getData = async () => {
         try {
-        const jsonValue = await AsyncStorage.getItem('@usuario')
+        const jsonValue = await AsyncStorage.getItem('@usuario');
+        console.log('getdate');
+        console.log(jsonValue);
+        console.log(JSON.parse(jsonValue!));
         return jsonValue != null ? JSON.parse(jsonValue) : null;
         // if(jsonValue !== null) {
         //     // value previously stored
