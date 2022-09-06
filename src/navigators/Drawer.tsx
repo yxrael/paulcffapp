@@ -10,50 +10,30 @@ import { MisPedidos } from '../screens/MisPedidos';
 import { useNavigation } from '@react-navigation/native';
 import { AuthContext } from '../context/AuthContext';
 import { Text, TouchableOpacity, View } from 'react-native';
-import { ListadoCafesTabs } from './ListadoCafesTabs';
-import { ProductContext } from '../context/ProductContext';
 import { ListadoCafesStack } from './ListadoCafesStack';
-import { checkUsuario } from '../firebase/providers';
-import AsyncStorage from '@react-native-async-storage/async-storage';
+// import { checkUsuario } from '../firebase/providers';
+// import AsyncStorage from '@react-native-async-storage/async-storage';
 // import { Background } from '../components/Background';
 // import { color } from 'react-native-reanimated';
+// import { UsuarioStorage } from '../interfaces/appInterfaces';
+
 
 const Drawer = createDrawerNavigator();
 
 export const MyDrawer = () => {
 
-    checkUsuario();
+    // const usuarioRegistrado: any = getData();
+
+    // useEffect( () => {
+    //     checkUsuario();
+    // }, [])
+    
     const { status } = useContext(AuthContext);
 
     if ( status !== 'authenticated'){
         return (
             <LoginScreen />
         )
-    }
-
-    
-    useEffect(() => {
-        const usuarioRegistrado = getData();
- 
-        console.log('from storage');
-        console.log( usuarioRegistrado );
-      }, [])
-
-      const getData = async () => {
-        try {
-        const jsonValue = await AsyncStorage.getItem('@usuario');
-        console.log('getdate');
-        console.log(jsonValue);
-        console.log(JSON.parse(jsonValue!));
-        return jsonValue != null ? JSON.parse(jsonValue) : null;
-        // if(jsonValue !== null) {
-        //     // value previously stored
-        //     return jsonValue
-        //   }
-        } catch(e) {
-        // error reading value
-        console.log(e);
-        }
     }
 
   return (

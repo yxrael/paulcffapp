@@ -54,6 +54,12 @@ export interface Usuario {
 
 
 
+export interface UsuarioStorage {
+    displayName: string | null, 
+    email: string | null,
+    photoURL: string | null,
+    uid: string | null
+}
 
 
 

@@ -1,11 +1,11 @@
 import React, { useReducer, createContext, useEffect, useState } from "react";
 import { LoginPrincipal } from "../firebase/callers";
-// import AsyncStorage from '@react-native-async-storage/async-storage';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 
 
 // import cafeApi from "../api/cafeApi";
-import {  Usuario, LoginData } from "../interfaces/appInterfaces";
+import {  Usuario, LoginData, UsuarioStorage } from "../interfaces/appInterfaces";
 import { signInWithGoogle } from "../firebase/providers";
 // import { AuthReducer, AuthState } from './AuthReducer';
 
@@ -16,7 +16,9 @@ type AuthContextProps = {
     status: 'checking' | 'authenticated' | 'not-authenticated';
     signUp: ( ) => void;
     signIn: ( loginData: LoginData) => void;
+    // signInStorage: ( user: UsuarioStorage ) => void;
     // signIn: () => void;
+    checkUsuario: () => void;
     logOut: () => void;
     removeError: () => void;
 }
@@ -46,12 +48,56 @@ export const AuthProvider = ({ children}: any) => {
 
     useEffect(() => {
     
-        checkUser();
+        checkUsuario();
         
     }, [])
 
+    const checkUsuario =  async () => {
 
-    const checkUser = async () => {
+        const user =  await getData();
+
+        if (!user.uid || user.uid === undefined){
+            dispatch({ 
+                status: "not-authenticated",
+                user: '',
+                errorMessage: ''
+        })
+        };
+    
+        if( user.uid !== undefined){
+            dispatch({
+                status: "authenticated",
+                user,
+                errorMessage: ''
+            }) 
+            // signInStorage( checkYaLoggeado );
+        }
+    
+    }
+
+    const getData = async () => {
+        try {
+    
+        const usuarioQuest: any = await AsyncStorage.getItem('usuario');
+        const usuarioRegistrado  = JSON.parse( usuarioQuest);
+    
+        if (!usuarioRegistrado){
+            return{}
+        };
+        if ( usuarioRegistrado.uid !== ''){
+            return usuarioRegistrado;
+            } else {
+                return {}
+            }
+    
+        } catch(e) {
+        // error reading value
+        console.log(e);
+        }
+    }
+
+
+    // const checkUser = async () => {
 
         // if( state.user === ''){
         //     return dispatch({ ...state, status: 'not-authenticated' })
@@ -83,7 +129,16 @@ export const AuthProvider = ({ children}: any) => {
         //                     user: resp.data.usuario
         //     }});
 
-    }
+    // }
+
+    // const signInStorage = async ( user: UsuarioStorage ) => {
+        
+    //                 dispatch({
+    //                     status: "authenticated",
+    //                     user,
+    //                     errorMessage: ''
+    //                 })    
+    //     };
 
     const signIn = async ( { correo, password }: LoginData ) => {
     // const signIn = async ( ) => {
@@ -154,7 +209,7 @@ export const AuthProvider = ({ children}: any) => {
     };
 
     const logOut= async () => {
-        // await AsyncStorage.removeItem( 'token' );
+        await AsyncStorage.removeItem( 'usuario' );
         return dispatch({ 
                 status: "not-authenticated",
                 user: '',
@@ -177,7 +232,9 @@ export const AuthProvider = ({ children}: any) => {
             signUp,
             signIn,
             logOut,
-            removeError
+            removeError,
+            // signInStorage,
+            checkUsuario
         }}>
             { children }
         </AuthContext.Provider>

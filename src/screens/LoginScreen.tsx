@@ -52,22 +52,33 @@ export const LoginScreen = ( { navigation }: any) => {
      }
 
      
-    const getData = async () => {
-        try {
-        const jsonValue = await AsyncStorage.getItem('@usuario');
-        console.log('getdate');
-        console.log(jsonValue);
-        console.log(JSON.parse(jsonValue!));
-        return jsonValue != null ? JSON.parse(jsonValue) : null;
+    // const getData = async () => {
+    //     try {
+    //     const displayName = await AsyncStorage.getItem('displayName');
+    //     const email = await AsyncStorage.getItem('email');
+    //     const photoURL = await AsyncStorage.getItem('photoURL');
+    //     const uid = await AsyncStorage.getItem('uid');
+    //     console.log(displayName);
+    //     console.log(email);
+    //     console.log(photoURL);
+    //     console.log(uid);
+    //     return {
+    //         displayName,
+    //         email,
+    //         photoURL,
+    //         uid
+    //     }
+        // console.log(JSON.parse(jsonValue!));
+        // return jsonValue != null ? JSON.parse(jsonValue) : null;
         // if(jsonValue !== null) {
         //     // value previously stored
         //     return jsonValue
         //   }
-        } catch(e) {
-        // error reading value
-        console.log(e);
-        }
-    }
+    //     } catch(e) {
+    //     // error reading value
+    //     console.log(e);
+    //     }
+    // }
   
 
     return (
