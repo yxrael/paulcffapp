@@ -1,7 +1,7 @@
 import { onAuthStateChanged, signInWithEmailAndPassword } from 'firebase/auth';
-import { LoginData, UsuarioStorage } from '../interfaces/appInterfaces';
+import { LoginData, Pedido, UsuarioStorage } from '../interfaces/appInterfaces';
 import { FirebaseAuth, FirebaseDB } from './config';
-import { collection, getDocs } from "firebase/firestore";
+import { collection, getDocs, doc, setDoc } from "firebase/firestore";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useContext } from 'react';
 import { AuthContext } from '../context/AuthContext';
@@ -114,4 +114,21 @@ export const cargaPedidos = async () => {
         // console.log(error)
         return { ok: false, error }
     }
+}
+
+export const enviaPedidoDB = async ( pedido: Pedido ) => {
+    
+    try {
+
+        await setDoc(doc(FirebaseDB, "pedidos", `${pedido.pedidoId}`), { ...pedido });
+        // await setDoc(doc(FirebaseDB, "pedidos", `${pedido.pedidoId}`), {
+        //     name: "Los Angeles",
+        //     state: "CA",
+        //     country: "USA"
+        //   } );
+        
+    } catch (error) {
+        console.log( error )
+    }
+
 }

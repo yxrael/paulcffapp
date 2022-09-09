@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { FlatList, StyleSheet, Text, View} from 'react-native';
+import { FlatList, View} from 'react-native';
 import { PedidoIndividual } from '../components/PedidoIndividual';
 import { AuthContext } from '../context/AuthContext';
 import { ProductContext } from '../context/ProductContext';
@@ -28,10 +28,6 @@ export const MisPedidos = () => {
       
     return (
         <View>
-            <Text>MIS PEDIDOS</Text>
-            <Text>{ user?.uid }</Text>
-            <Text>{ user?.displayName }</Text>
-            <Text>******</Text>
 
             <FlatList 
                 data={ pedidosCliente }
@@ -42,13 +38,10 @@ export const MisPedidos = () => {
                     seleccionShort={ item.seleccionShort }
                 />)}
                 keyExtractor={ item => String(item.pedidoId) }
+                ListHeaderComponent=<View style={{ height: 30}}/>
+                ListFooterComponent=<View style={{ height: 100}}/>
             />
-            
 
         </View>
     );
 }
-
-const styles = StyleSheet.create({
-
-});

@@ -24,7 +24,7 @@ export interface Producto {
 
 
 export interface Pedido {
-    bolsas: string,
+    bolsas: number,
     completado: boolean,
     date: string,
     name: string,
@@ -35,6 +35,19 @@ export interface Pedido {
     total: number,
     uid: string
 }
+
+// export interface PedidoToDB {
+//     bolsas: string,
+//     completado: boolean,
+//     date: string,
+//     name: string,
+//     observaciones: string,
+//     pedidoId: string,
+//     seleccionShort: UnidadPedido[],
+//     tipoCliente: string,
+//     total: number,
+//     uid: string
+// }
 
 export interface UnidadPedido {
     cantidad: number,

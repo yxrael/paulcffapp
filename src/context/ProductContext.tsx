@@ -2,7 +2,7 @@ import React, { createContext, useEffect, useState } from "react";
 import { LoginPrincipal } from "../firebase/callers";
 // import AsyncStorage from '@react-native-async-storage/async-storage';
 
-import { cargaPedidos, cargaProductos } from "../firebase/providers";
+import { cargaPedidos, cargaProductos, enviaPedidoDB } from "../firebase/providers";
 import { Producto, Pedido, UnidadPedido } from '../interfaces/appInterfaces';
 
 type ProductContextProps = {
@@ -12,6 +12,9 @@ type ProductContextProps = {
     loadProductosYPedidos: () => void,
     cambiaCantidadCafeEnPedido: ( id: number, cantidad: number ) => void,
     eliminaCafeEnPedido: ( id: number ) => void,
+    modificaObservaciones: ( observaciones: string ) => void,
+    modificaBolsas: ( bolsas: number) => void,
+    enviaPedido: ( pedido: Pedido ) => void
     // errorMessage: string;
     // // token: string | null;
     // user: Usuario | null;
@@ -98,6 +101,16 @@ export const ProductProvider = ({ children}: any) => {
 
     };
 
+    const enviaPedido = async ( pedido: Pedido ) => {
+
+        await enviaPedidoDB( pedido );   
+
+        dispatch( productInitialState );
+
+        loadProductosYPedidos();
+
+    }
+
     const cambiaCantidadCafeEnPedido = ( id: number, cantidad: number ) => {
         const cantidadModificada = stateProductos.productos.map( item => {
             if( item.id === id){
@@ -124,52 +137,25 @@ export const ProductProvider = ({ children}: any) => {
         } )
     }
 
+    const modificaBolsas = ( bolsas: number ) => {
+        // stateProductos.pedidos[0].bolsas
+        // dispatch({ ...stateProductos } )
 
-    // const signUp= async ( { nombre, correo, password, nif }: RegisterData ) => {
+    }
 
-    //     // try {
-    //     //     const { data } = await cafeApi.post<LoginResponse>('/usuarios', { nombre, correo, password, nif } );
-    
-    //     //     dispatch({  type: 'signUp',
-    //     //                 payload: {
-    //     //                     token: data.token,
-    //     //                     user: data.usuario
-    //     //     }});
+    const modificaObservaciones = ( observaciones: string ) => {
 
-    //     //     await AsyncStorage.setItem( 'token', data.token );
-
-    //     //     } catch ( error: any) {
-    //     //         dispatch({ 
-    //     //             type: 'addError', 
-    //     //             payload: error.response.data.errors[0].msg || 'Error. Revisa la información'
-    //     //         });
-    //     //     }
-    // };
-
-    // const logOut= async () => {
-    //     // await AsyncStorage.removeItem( 'token' );
-    //     return dispatch({ 
-    //             status: "not-authenticated",
-    //             user: '',
-    //             errorMessage: ''
-    //     })
-    // };
-
-    // const removeError= () => {
-
-    //     return dispatch({
-    //         status: "not-authenticated",
-    //         user: '',
-    //         errorMessage: ''
-    //     })
-    // };
+    }
 
     return (
         <ProductContext.Provider value={{
             ...stateProductos,
             loadProductosYPedidos,
             cambiaCantidadCafeEnPedido,
-            eliminaCafeEnPedido
+            eliminaCafeEnPedido,
+            modificaBolsas,
+            modificaObservaciones,
+            enviaPedido
         }}>
             { children }
         </ProductContext.Provider>

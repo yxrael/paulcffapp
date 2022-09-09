@@ -8,13 +8,20 @@ interface Props {
 
 export const DetallePedido = (  {seleccionShort}: Props) => {
     return (
-        
-            <View>
-                <Text>{ seleccionShort.cantidad }</Text>
-                <Text>{ seleccionShort.nombre }</Text>
-                <Text>{ seleccionShort.pais }</Text>
-                <Text>{ seleccionShort.proceso }</Text>
-                <Text>------</Text> 
+
+            <View style={{ 
+                flexDirection: 'column', 
+                borderBottomColor: 'rgba(100, 149, 237, 0.3)', 
+                borderBottomWidth: 1}}>
+                <View style={{ flex: 2, flexDirection: 'row'}}>
+                    <Text style={{ fontWeight: 'bold', paddingRight: 5, fontSize: 17}}>{ seleccionShort.cantidad }</Text>
+                    <Text style={{ marginBottom: 4, fontSize: 17, fontWeight: 'bold'}}>{ seleccionShort.pais }</Text>
+                </View>
+                <View style={{ flex: 1}}>
+                    <Text style={{ marginBottom: 6}}>{ seleccionShort.proceso }</Text>
+                    
+                </View>
+                
             </View>
         
     );

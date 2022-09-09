@@ -8,6 +8,7 @@ import { AuthContext } from '../context/AuthContext';
 import { ProductContext } from '../context/ProductContext';
 import { Producto } from '../interfaces/appInterfaces';
 import { LoginScreen } from './LoginScreen';
+import { LoadingScreen } from './LoadingScreen';
 
 //v31.08
 
@@ -15,15 +16,15 @@ import { LoginScreen } from './LoginScreen';
 
 export const ListadoCafesAmerica = ( ) => {
 
-    const { user, status } = useContext(AuthContext);
-    const { productos } = useContext(ProductContext);
+    const { user } = useContext(AuthContext);
+    const { productos, status } = useContext(ProductContext);
     const navigation = useNavigation<any>();
 
     const listaAmerica = productos.filter( 
         cafe => cafe.continente === 'AMERICA' 
         && cafe.disponible === true 
         && cafe.descafeinado === false
-        // && cafe.tipoCliente === user?.photoURL
+        && cafe.tipoCliente === user?.photoURL
         );
 
     // if ( status !== 'authenticated'){
@@ -31,6 +32,12 @@ export const ListadoCafesAmerica = ( ) => {
     //         <LoginScreen />
     //     )
     // }
+
+    if ( status !== 'loaded'){
+        return(
+            <LoadingScreen/>
+        )
+    }
 
     const handleNext = () => {
         navigation.navigate('RevisaPedido');

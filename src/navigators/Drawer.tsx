@@ -56,7 +56,7 @@ export const MyDrawer = () => {
     >
 
       <Drawer.Screen name="MrChava" component={ListadoCafesStack} />
-      <Drawer.Screen name="Ajustes" component={Ajustes} />
+      {/* <Drawer.Screen name="Ajustes" component={Ajustes} /> */}
       <Drawer.Screen name="LoginScreen" component={LoginScreen} />
       <Drawer.Screen name="MiCuenta" component={MiCuenta} />
       <Drawer.Screen name="MisPedidos" component={MisPedidos} />
@@ -108,7 +108,7 @@ const MenuInterno = (  ) => {
                     <Text style={{ marginLeft: 20, fontSize: 17, marginBottom: 30}}>Mi cuenta</Text>
                 </TouchableOpacity>
 
-                <TouchableOpacity 
+                {/* <TouchableOpacity 
                     style={{ flexDirection: 'row'}}
                     onPress={ () => navigation.navigate('Ajustes')}     
                 >
@@ -117,7 +117,7 @@ const MenuInterno = (  ) => {
                         size={30}
                     />
                     <Text style={{ marginLeft: 20, fontSize: 17, marginBottom: 30}}>Ajustes</Text>
-                </TouchableOpacity>
+                </TouchableOpacity> */}
 
                 <TouchableOpacity 
                     style={{ flexDirection: 'row'}}

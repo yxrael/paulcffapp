@@ -56,7 +56,6 @@ export const CafeIndividual = ( {
         console.log('muestra detalles');
     }
 
-
     const handleMas = () => {
         cantidad ++;
         cambiaCantidadCafeEnPedido( id!, cantidad );

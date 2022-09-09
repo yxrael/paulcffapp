@@ -6,21 +6,22 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import { CafeIndividual } from '../components/CafeIndividual';
 import { AuthContext } from '../context/AuthContext';
 import { ProductContext } from '../context/ProductContext';
+import { LoadingScreen } from './LoadingScreen';
 import { LoginScreen } from './LoginScreen';
 
 //v31.08
 
 export const ListadoCafesAsia = () => {
 
-    const { user, status } = useContext(AuthContext);
-    const { productos } = useContext(ProductContext);
+    const { user } = useContext(AuthContext);
+    const { productos, status } = useContext(ProductContext);
     const navigation = useNavigation<any>();
 
     const listaAsia = productos.filter( 
         cafe => cafe.continente === 'ASIA' 
         && cafe.disponible === true 
         && cafe.descafeinado === false
-        // && cafe.tipoCliente === user?.photoURL
+        && cafe.tipoCliente === user?.photoURL
         );
 
 
@@ -29,6 +30,12 @@ export const ListadoCafesAsia = () => {
     //         <LoginScreen />
     //     )
     // }
+
+    if ( status !== 'loaded'){
+        return(
+            <LoadingScreen/>
+        )
+    }
 
     const handleNext = () => {
         navigation.navigate('RevisaPedido');
