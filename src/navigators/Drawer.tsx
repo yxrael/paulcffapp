@@ -9,7 +9,7 @@ import { MiCuenta } from '../screens/MiCuenta';
 import { MisPedidos } from '../screens/MisPedidos';
 import { useNavigation } from '@react-navigation/native';
 import { AuthContext } from '../context/AuthContext';
-import { Text, TouchableOpacity, View } from 'react-native';
+import { Platform, Text, TouchableOpacity, View } from 'react-native';
 import { ListadoCafesStack } from './ListadoCafesStack';
 // import { checkUsuario } from '../firebase/providers';
 // import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -44,7 +44,7 @@ export const MyDrawer = () => {
             drawerPosition: 'left',
             // drawerType: width >= 768 ? 'permanent' : 'front'
             headerStyle: {
-                height: 30
+                height: Platform.OS === 'ios' ? 80 : 30
             },
             // header: () => <Cabecera/>
             headerTitleStyle: {

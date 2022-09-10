@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import {Button, Dimensions, StyleSheet, Text, View} from 'react-native';
+import {Button, Dimensions, Platform, StyleSheet, Text, View} from 'react-native';
 import { AuthContext } from '../context/AuthContext';
 import { LoginScreen } from './LoginScreen';
 
@@ -27,11 +27,16 @@ export const MiCuenta = () => {
                 <Text style={{ paddingBottom: 5}}>{ user?.uid}</Text>
             </View>
             
-            <Button
-                title='Cerrar sesión'
-                onPress={ handleLogout}
-                color='#D2B48C'
-            />
+            <View style={{ 
+                marginBottom:
+                Platform.OS === 'ios' ? 100 : 30 
+            }}>
+                <Button
+                    title='Cerrar sesión'
+                    onPress={ handleLogout}
+                    color='#D2B48C'
+                />
+            </View>
         </View>
     );
 }

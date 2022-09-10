@@ -38,8 +38,9 @@ export const MisPedidos = () => {
                     seleccionShort={ item.seleccionShort }
                 />)}
                 keyExtractor={ item => String(item.pedidoId) }
-                ListHeaderComponent=<View style={{ height: 30}}/>
-                ListFooterComponent=<View style={{ height: 100}}/>
+                ListHeaderComponent={<View style={{ height: 30}}/>}
+                ListFooterComponent={<View style={{ height: 100}}/>}
+                showsVerticalScrollIndicator={ false }
             />
 
         </View>
