@@ -5,6 +5,7 @@ import { AuthContext } from '../context/AuthContext';
 import { ProductContext } from '../context/ProductContext';
 import { uniqueId } from '../helpers/creaIDAleatorio';
 import moment from 'moment';
+import { LoadingScreen } from './LoadingScreen';
 
 const windowWidth = Dimensions.get('window').width;
 
@@ -13,7 +14,7 @@ export const ConfirmaPedido = ( { route }: any) => {
     // const navigation = useNavigation();
 
     // const navigation = useNavigation<any>();
-    const { productos, enviaPedido } = useContext( ProductContext );
+    const { productos, enviaPedido, status } = useContext( ProductContext );
     const { user } = useContext(AuthContext);
 
     let seleccionShort: any = [];
@@ -45,6 +46,12 @@ export const ConfirmaPedido = ( { route }: any) => {
         bolsas: route.params.bolsas,
         observaciones: route.params.observaciones
     };
+
+    if ( status !== 'loaded'){
+        return(
+            <LoadingScreen/>
+        )
+    }
 
     const handleEnviar = () => {
 
