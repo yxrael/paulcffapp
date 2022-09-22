@@ -103,6 +103,11 @@ export const ProductProvider = ({ children}: any) => {
 
     const enviaPedido = async ( pedido: Pedido ) => {
 
+        dispatch( {
+            ...stateProductos,
+            status: 'not-loaded'
+        } )
+
         await enviaPedidoDB( pedido );   
 
         dispatch( productInitialState );

@@ -18,11 +18,13 @@ export const RevisaPedido = () => {
         observaciones: ''
      });
 
-    const { productos } = useContext( ProductContext );
+    const { productos, status } = useContext( ProductContext );
 
     // const [seleccion, setSeleccion] = useState<Producto[]>([])
 
     const seleccion = productos.filter( item => item.cantidad > 0)
+
+    
 
     useEffect(() => {
       if( seleccion.length === 0){
@@ -34,6 +36,12 @@ export const RevisaPedido = () => {
     seleccion.map( (item) =>{
         totalPedido = totalPedido + (item.cantidad * parseInt( item.precio ))
     });
+
+    if ( status !== 'loaded'){
+        return(
+            <LoadingScreen/>
+        )
+    }
 
 
     return (
