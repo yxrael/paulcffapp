@@ -21,7 +21,6 @@ export const MisPedidos = () => {
         )
     }
 
-    
         if( user?.uid ){
             pedidosCliente = pedidos.filter( item => item.uid === user!.uid )
         }
@@ -36,6 +35,7 @@ export const MisPedidos = () => {
                     nombre={ item.name }
                     date={ item.date}
                     seleccionShort={ item.seleccionShort }
+                    enviado={ item.completado }
                 />)}
                 keyExtractor={ item => String(item.pedidoId) }
                 ListHeaderComponent={<View style={{ height: 30}}/>}

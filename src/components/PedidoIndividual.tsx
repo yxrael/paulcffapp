@@ -7,17 +7,23 @@ import { DetallePedido } from './DetallePedido';
 interface Props {
     nombre: string,
     date: string,
+    enviado: boolean,
     seleccionShort: UnidadPedido[]
 }
 
 const windowWidth = Dimensions.get('window').width;
 
-export const PedidoIndividual = ( {nombre, date, seleccionShort }: Props ) => {
+export const PedidoIndividual = ( {nombre, date, seleccionShort, enviado }: Props ) => {
 
     return (
         <View>
             <View style={ styles.contenedor }>
-                <View style={{ alignItems: 'flex-end', paddingRight: 30}}>
+                <View style={{ alignItems: 'flex-end', paddingRight: 30, marginBottom: 10}}>
+                    {
+                        enviado
+                        ? <Text>ENVIADO</Text>
+                        : <Text>EN PREPARACIÓN</Text>
+                    }
                     <Text style={{ fontWeight: 'bold', fontSize: 10}}>{ date }</Text>
                 </View>
                 
