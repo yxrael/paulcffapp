@@ -11,6 +11,9 @@ import { useNavigation } from '@react-navigation/native';
 import { AuthContext } from '../context/AuthContext';
 import { Platform, Text, TouchableOpacity, View } from 'react-native';
 import { ListadoCafesStack } from './ListadoCafesStack';
+
+import SplashScreen from 'react-native-splash-screen'
+
 // import { checkUsuario } from '../firebase/providers';
 // import AsyncStorage from '@react-native-async-storage/async-storage';
 // import { Background } from '../components/Background';
@@ -27,6 +30,11 @@ export const MyDrawer = () => {
     // useEffect( () => {
     //     checkUsuario();
     // }, [])
+
+    useEffect(() => {
+        SplashScreen.hide();
+    }, [])
+    
     
     const { status } = useContext(AuthContext);
 
