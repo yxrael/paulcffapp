@@ -17,11 +17,11 @@ export const ListadoCafesTabs = () => {
         screenOptions={{
           tabBarStyle: {
             backgroundColor: 'white',
-            height: 30,
+            height: 55,
           },
           tabBarLabelStyle: {
             flex: 1,
-            fontSize: 8,
+            fontSize: 14,
             fontWeight: 'bold',
     
           },

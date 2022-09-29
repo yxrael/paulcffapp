@@ -19,6 +19,7 @@ import SplashScreen from 'react-native-splash-screen'
 // import { Background } from '../components/Background';
 // import { color } from 'react-native-reanimated';
 // import { UsuarioStorage } from '../interfaces/appInterfaces';
+import { FadeInImage } from '../components/FadeInImage';
 
 
 const Drawer = createDrawerNavigator();
@@ -82,6 +83,15 @@ const MenuInterno = (  ) => {
 
         <DrawerContentScrollView>
             <View style={{ marginTop: 80, marginLeft: 20}}>
+
+            <FadeInImage 
+                    uri='https://mrchava.es/wp-content/uploads/2021/01/cropped-LOGO2.jpg'
+                    style={{
+                        height: 80,
+                        width: 200,
+                        marginVertical: 50
+                    }}
+                />
                 <TouchableOpacity 
                     style={{ flexDirection: 'row'}}
                     onPress={ () => navigation.navigate( 'MrChava' )}     
@@ -137,6 +147,7 @@ const MenuInterno = (  ) => {
                     />
                     <Text style={{ marginLeft: 20, fontSize: 17}}>Volver</Text>
                 </TouchableOpacity>
+                
             </View>
         </DrawerContentScrollView>
     )

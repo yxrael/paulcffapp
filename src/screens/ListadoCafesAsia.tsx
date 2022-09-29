@@ -38,26 +38,13 @@ export const ListadoCafesAsia = () => {
     }
 
     const handleNext = () => {
-        navigation.navigate('RevisaPedido');
+        // navigation.navigate('RevisaPedido');
+        navigation.jumpTo('Africa');
     }
 
     return (
 
-    <View>
-
-        <View 
-            style={{
-                position: 'absolute',
-                zIndex: 8888,
-                backgroundColor: 'black',
-                height: 50,
-                width: 50,
-                bottom: 29,
-                right: 8,
-                borderRadius: 100,
-                opacity: 0.3
-            }}
-        />
+        <View style={{ flex: 1}}>
 
         <TouchableOpacity 
                 activeOpacity={ 0.8 }
@@ -89,6 +76,22 @@ export const ListadoCafesAsia = () => {
                 {/* <Text style={{ fontWeight: 'bold' }}>OK</Text> */}
             </View>
         </TouchableOpacity>
+
+        <View 
+            style={{
+                position: 'absolute',
+                zIndex: 8888,
+                backgroundColor: 'black',
+                height: 50,
+                width: 50,
+                bottom: 29,
+                right: 8,
+                borderRadius: 100,
+                opacity: 0.3
+            }}
+        />
+
+        
 
         <View style={{ marginHorizontal: 20}}>
             {/* <Text>LISTADO CAFES</Text>

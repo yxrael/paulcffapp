@@ -11,9 +11,8 @@ const windowWidth = Dimensions.get('window').width;
 
 export const ConfirmaPedido = ( { route }: any) => {
 
-    // const navigation = useNavigation();
+    const navigation = useNavigation<any>();
 
-    // const navigation = useNavigation<any>();
     const { productos, enviaPedido, status } = useContext( ProductContext );
     const { user } = useContext(AuthContext);
 
@@ -58,18 +57,19 @@ export const ConfirmaPedido = ( { route }: any) => {
         enviaPedido( pedido );
 
         // navigation.navigate('ListadoCafesAmerica');
+        navigation.popToTop();
 
     }  
 
     return (
         <View style={{ marginHorizontal: 20, justifyContent: 'space-around'}}>
             <View style={ styles.contenedor}>
-                <Text style={{ fontWeight: 'bold', marginBottom: 10}}>PEDIDO ENVIADO</Text>
-                <Text>El pedido { pedido.pedidoId }</Text>
-                <Text>ha sido enviado.</Text>
-                <Text> </Text>
-                <Text>Revisa su estado en</Text>
-                <Text>la sección "Mis Pedidos"</Text>
+                <Text style={{ fontWeight: 'bold', marginBottom: 10, fontSize: 30}}>PEDIDO REALIZADO!</Text>
+                <Text style={ styles.textoContenedor }>El pedido { pedido.pedidoId }</Text>
+                <Text style={ styles.textoContenedor }>ha sido  solicitado.</Text>
+                <Text style={ styles.textoContenedor }> </Text>
+                <Text style={ styles.textoContenedor }>Revisa su estado en</Text>
+                <Text style={ styles.textoContenedor }>la sección "Mis Pedidos"</Text>
             </View>
             <View style={{ width: 200, alignSelf: 'center'}}>
             <Button
@@ -88,9 +88,9 @@ const styles = StyleSheet.create({
     contenedor: {
         backgroundColor: '#FAEBD7',
         borderRadius: 15,
-        paddingVertical: 5,
+        paddingVertical: 40,
         paddingHorizontal: 10,
-        marginBottom: 30,
+        marginBottom: 40,
         width: windowWidth * 0.85,
         // height: (windowWidth * 0.9) * 0.25,
         justifyContent: 'space-between',
@@ -105,5 +105,8 @@ const styles = StyleSheet.create({
         shadowRadius: 3.84,
         elevation: 5,
         marginTop: 30
+    },
+    textoContenedor: {
+        fontSize: 20
     }
 });
