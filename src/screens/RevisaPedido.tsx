@@ -1,6 +1,6 @@
 import { useNavigation } from '@react-navigation/native';
 import React, { useContext, useEffect } from 'react';
-import { Dimensions, Button, FlatList, StyleSheet, Text, TextInput, View, ScrollView, TouchableOpacity } from 'react-native';
+import { Dimensions, FlatList, StyleSheet, Text, TextInput, View, ScrollView, TouchableOpacity } from 'react-native';
 import { DetallePedidoIndividual } from '../components/DetallePedidoIndividual';
 import { ProductContext } from '../context/ProductContext';
 import { useForm } from '../hooks/useForm';
@@ -129,7 +129,7 @@ export const RevisaPedido = () => {
 
                 <View style={ styles.contenedor }>
                     <View style={{ flexDirection: 'column' }}>
-                        <Text>¿Añadir bolsas? 50 cts/unidad</Text>
+                        <Text style={{ fontSize: 18, fontWeight: 'bold'}}>¿Añadir bolsas? 50 cts/unidad</Text>
                         <TextInput
                             placeholder='Cantidad de bolsas'
                             onChangeText={ ( value ) => onChange( value, 'bolsas')}
@@ -138,19 +138,19 @@ export const RevisaPedido = () => {
                             autoCapitalize='none'
                             autoCorrect={ false }
                             style={{
-                                fontSize: 18,
-                                height: 50
+                                fontSize: 30,
+                                height: 70
                                 // backgroundColor: 'red'
                             }}
                         />
                     </View>
                     
-                    <Text>Importe total bolsas { bolsas * 0.50 } €</Text>
+                    <Text style={{ fontSize: 18}}>Importe total bolsas { bolsas * 0.50 } €</Text>
                 </View>
                 
                 <View style={ styles.contenedor }>
                     <View style={{ flexDirection: 'column'}}>
-                    <Text>Observaciones: </Text>
+                    <Text style={{ fontSize: 18, fontWeight: 'bold'}}>Observaciones: </Text>
                         <TextInput
                             placeholder='Observaciones del pedido'
                             onChangeText={ ( value ) => onChange( value, 'observaciones')}
@@ -158,7 +158,8 @@ export const RevisaPedido = () => {
                             autoCapitalize='none'
                             autoCorrect={ false }
                             style={{
-                                height: 60
+                                height: 60,
+                                fontSize: 18,
                             }}
                         />
                     </View>
@@ -168,7 +169,7 @@ export const RevisaPedido = () => {
                     height: 70, backgroundColor: '#DEB887', 
                     alignItems: 'flex-end', 
                     paddingRight: 50} }>
-                    <Text style={{ fontWeight: 'bold', fontSize: 16}}>Total pedido: { totalPedido + (bolsas * 0.50)} €</Text>
+                    <Text style={{ fontWeight: 'bold', fontSize: 20}}>Total pedido: { totalPedido + (bolsas * 0.50)} €</Text>
                     <Text>IVA no incluído</Text>
                 </View>
 
@@ -225,5 +226,7 @@ const styles = StyleSheet.create({
         shadowRadius: 3.84,
         elevation: 5,
         marginTop: 10
-    }
+    },
+  
+
 });
