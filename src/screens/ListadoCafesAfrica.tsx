@@ -38,7 +38,8 @@ export const ListadoCafesAfrica = () => {
     }
 
     const handleNext = () => {
-        navigation.navigate('RevisaPedido');
+        // navigation.navigate('RevisaPedido');
+        navigation.jumpTo('Descafeinados');
     }
 
     return (

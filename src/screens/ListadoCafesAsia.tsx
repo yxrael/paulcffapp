@@ -38,7 +38,8 @@ export const ListadoCafesAsia = () => {
     }
 
     const handleNext = () => {
-        navigation.navigate('RevisaPedido');
+        // navigation.navigate('RevisaPedido');
+        navigation.jumpTo('Africa');
     }
 
     return (

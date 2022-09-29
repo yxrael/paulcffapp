@@ -11,9 +11,8 @@ const windowWidth = Dimensions.get('window').width;
 
 export const ConfirmaPedido = ( { route }: any) => {
 
-    // const navigation = useNavigation();
+    const navigation = useNavigation<any>();
 
-    // const navigation = useNavigation<any>();
     const { productos, enviaPedido, status } = useContext( ProductContext );
     const { user } = useContext(AuthContext);
 
@@ -58,6 +57,7 @@ export const ConfirmaPedido = ( { route }: any) => {
         enviaPedido( pedido );
 
         // navigation.navigate('ListadoCafesAmerica');
+        navigation.popToTop();
 
     }  
 

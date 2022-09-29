@@ -40,7 +40,8 @@ export const ListadoCafesAmerica = ( ) => {
     }
 
     const handleNext = () => {
-        navigation.navigate('RevisaPedido');
+        // navigation.navigate('RevisaPedido');
+        navigation.jumpTo('Asia');
     }
 
     return (

@@ -1,5 +1,5 @@
 import { useNavigation } from '@react-navigation/native';
-import React, { useContext, useEffect } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { Dimensions, FlatList, StyleSheet, Text, TextInput, View, ScrollView, TouchableOpacity } from 'react-native';
 import { DetallePedidoIndividual } from '../components/DetallePedidoIndividual';
 import { ProductContext } from '../context/ProductContext';
@@ -7,24 +7,21 @@ import { useForm } from '../hooks/useForm';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import { LoadingScreen } from './LoadingScreen';
 
+
 const windowWidth = Dimensions.get('window').width;
 
 export const RevisaPedido = () => {
 
     const navigation = useNavigation<any>();
+    const [bolsas, setBolsas] = useState(0);
 
-    const { bolsas, observaciones, onChange }= useForm({
-        bolsas: 0,
-        observaciones: ''
+    const { observaciones, onChange }= useForm({
+                observaciones: ''
      });
 
     const { productos, status } = useContext( ProductContext );
 
-    // const [seleccion, setSeleccion] = useState<Producto[]>([])
-
     const seleccion = productos.filter( item => item.cantidad > 0)
-
-    
 
     useEffect(() => {
       if( seleccion.length === 0){
@@ -43,6 +40,15 @@ export const RevisaPedido = () => {
         )
     }
 
+    const handleMas = () => {
+        setBolsas( bolsas +1 )
+    }
+
+    const handleMenos = () => {
+        if(bolsas > 0){
+            setBolsas( bolsas -1 )
+        }
+    }
 
     return (
                 
@@ -96,8 +102,6 @@ export const RevisaPedido = () => {
         <ScrollView
             nestedScrollEnabled={ true } 
         >
-        
-            {/* <Text>CONFIRMA PEDIDO</Text> */}
 
             <View style={{ marginHorizontal: 20}}>
 
@@ -128,24 +132,30 @@ export const RevisaPedido = () => {
             <View style={{ marginHorizontal: 20}}>
 
                 <View style={ styles.contenedor }>
-                    <View style={{ flexDirection: 'column' }}>
-                        <Text style={{ fontSize: 18, fontWeight: 'bold'}}>¿Añadir bolsas? 50 cts/unidad</Text>
-                        <TextInput
-                            placeholder='Cantidad de bolsas'
-                            onChangeText={ ( value ) => onChange( value, 'bolsas')}
-                            value={ String(bolsas) }
-                            maxLength={ 3 }
-                            autoCapitalize='none'
-                            autoCorrect={ false }
-                            style={{
-                                fontSize: 30,
-                                height: 70
-                                // backgroundColor: 'red'
-                            }}
-                        />
+                    <View style={{ flexDirection: 'column', alignItems: 'center' }}>
+                        <View style={{ flexDirection: 'row'}}>
+                            <Text style={{ fontSize: 18, fontWeight: 'bold'}}>¿Añadir bolsas?</Text>
+                        </View>
+                        
+                        <View style={{ flexDirection: 'row', alignItems: 'center', paddingVertical: 5}}>
+                                <TouchableOpacity
+                                    activeOpacity={ 0.6 }
+                                    onPress={ handleMenos }
+                                >
+                                    <Ionicons name='caret-back-outline' size={35} color='#808000'/>
+                                </TouchableOpacity>
+                                <Text style={{ fontSize: 35 }}>{ bolsas }</Text>
+                                <TouchableOpacity
+                                    activeOpacity={ 0.6 }
+                                    onPress={ handleMas }
+                                >
+                                    <Ionicons name='caret-forward-outline' size={35} color='#808000'/>
+                                </TouchableOpacity>
+                        </View>
+                        <Text style={{ fontSize: 18}}>Importe total bolsas { bolsas * 0.50 } €</Text>
+                        <Text style={{ fontSize: 16, marginLeft: 30}}>(50 cts/unidad)</Text>
                     </View>
                     
-                    <Text style={{ fontSize: 18}}>Importe total bolsas { bolsas * 0.50 } €</Text>
                 </View>
                 
                 <View style={ styles.contenedor }>
@@ -174,28 +184,6 @@ export const RevisaPedido = () => {
                 </View>
 
             </View>
-
-            {/* <View style={{ height: 100 }}></View> */}
-
-            {/* <View style={{ 
-                justifyContent: 'space-around',
-                flexDirection: 'row',
-                marginHorizontal: 20,
-                marginVertical: 30}}>
-                <Button
-                    title='Volver'
-                    onPress={ () => navigation.goBack()}
-                    color='#F5DEB3'
-                />
-                <Button
-                    title='Enviar'
-                    onPress={ () => navigation.navigate('ConfirmaPedido', { 
-                        observaciones,
-                        bolsas, 
-                        total: totalPedido + (bolsas * 0.50) })}
-                    color='#CD853F'
-                />
-            </View> */}
 
             <View style={{ height: 200 }}></View>
             
@@ -228,5 +216,4 @@ const styles = StyleSheet.create({
         marginTop: 10
     },
   
-
 });
