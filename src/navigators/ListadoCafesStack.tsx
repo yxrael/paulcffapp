@@ -18,7 +18,7 @@ export const ListadoCafesStack = () => {
     >
       <Stack.Screen name="ListadoCafesTabs" component={ListadoCafesTabs} />
       <Stack.Screen name="RevisaPedido" component={RevisaPedido} />
-      <Stack.Screen name="ConfirmaPedido" component={ConfirmaPedido} />
+      <Stack.Screen name="ConfirmaPedido" component={ConfirmaPedido}/>
     </Stack.Navigator>
   );
 }

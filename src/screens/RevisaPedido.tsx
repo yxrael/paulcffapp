@@ -1,11 +1,15 @@
 import { useNavigation } from '@react-navigation/native';
 import React, { useContext, useEffect, useState } from 'react';
 import { Dimensions, FlatList, StyleSheet, Text, TextInput, View, ScrollView, TouchableOpacity } from 'react-native';
+import { uniqueId } from '../helpers/creaIDAleatorio';
+import moment from 'moment'
+
 import { DetallePedidoIndividual } from '../components/DetallePedidoIndividual';
 import { ProductContext } from '../context/ProductContext';
 import { useForm } from '../hooks/useForm';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import { LoadingScreen } from './LoadingScreen';
+import { AuthContext } from '../context/AuthContext';
 
 
 const windowWidth = Dimensions.get('window').width;
@@ -19,26 +23,28 @@ export const RevisaPedido = () => {
                 observaciones: ''
      });
 
-    const { productos, status } = useContext( ProductContext );
+    const { productos, status, enviaPedido} = useContext( ProductContext );
+    const { user } = useContext(AuthContext);
 
     const seleccion = productos.filter( item => item.cantidad > 0)
+    let seleccionShort: any = [];
 
-    useEffect(() => {
-      if( seleccion.length === 0){
-        navigation.goBack();
-      }
-    }, [seleccion])
+    // useEffect(() => {
+    //   if( seleccion.length === 0){
+    //     navigation.goBack();
+    //   }
+    // }, [ seleccion ])
     
     let totalPedido: number = 0;
     seleccion.map( (item) =>{
         totalPedido = totalPedido + (item.cantidad * parseInt( item.precio ))
     });
 
-    if ( status !== 'loaded'){
-        return(
-            <LoadingScreen/>
-        )
-    }
+    // if ( status !== 'loaded'){
+    //     return(
+    //         <LoadingScreen/>
+    //     )
+    // }
 
     const handleMas = () => {
         setBolsas( bolsas +1 )
@@ -49,6 +55,61 @@ export const RevisaPedido = () => {
             setBolsas( bolsas -1 )
         }
     }
+
+    const handleEnviar = () => {
+
+        if ( status !== 'loaded'){
+            return(
+                <LoadingScreen/>
+            )
+        }
+
+        if(seleccion.length === 0 && bolsas === 0){
+            return
+        }
+
+        const total =  totalPedido + (bolsas * 0.50);
+
+        seleccion.forEach(producto => {
+            seleccionShort = [...seleccionShort, {
+                id: producto.id,
+                nombre: producto.nombre,
+                pais: producto.pais,
+                proceso: producto.proceso,
+                cantidad: producto.cantidad
+            }]
+        });
+
+        const pedidoId = uniqueId('p_');
+        const date = moment( new Date() ).format('DD/MM/YYYY');
+
+        const pedido = {
+            completado: false,
+            date,
+            name: user!.displayName,
+            pedidoId,
+            seleccionShort,
+            tipoCliente: user!.photoURL,
+            total,
+            uid: user!.uid,
+            bolsas,
+            observaciones
+        };
+
+        enviaPedido( pedido );
+
+        navigation.navigate('ConfirmaPedido', {pedido});
+
+    }
+
+    // if ( status !== 'loaded'){
+    //     return(
+    //         <LoadingScreen/>
+    //     )
+    // }
+
+
+
 
     return (
                 
@@ -70,10 +131,11 @@ export const RevisaPedido = () => {
 
             <TouchableOpacity 
                     activeOpacity={ 0.8 }
-                    onPress={ () => navigation.navigate('ConfirmaPedido', { 
-                        observaciones,
-                        bolsas, 
-                        total: totalPedido + (bolsas * 0.50) })}
+                    onPress={ handleEnviar }
+                    // onPress={ () => navigation.navigate('ConfirmaPedido', { 
+                    //     observaciones,
+                    //     bolsas, 
+                    //     total: totalPedido + (bolsas * 0.50) })}
                     style={{
                     position: 'absolute',
                     zIndex: 9999,

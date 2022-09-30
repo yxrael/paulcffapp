@@ -35,10 +35,9 @@ export const MyDrawer = () => {
     useEffect(() => {
         SplashScreen.hide();
     }, [])
-    
-    
-    const { status } = useContext(AuthContext);
 
+    const { status } = useContext(AuthContext);
+    
     if ( status !== 'authenticated'){
         return (
             <LoginScreen />
