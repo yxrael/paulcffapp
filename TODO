@@ -7,9 +7,15 @@ seguimiento estado del user en todos los screens o context
 perseverancia del login, guardado en el storage
 
 
-clave app 3puntosColega
+clave app 3puntosColega, despues: 3puntoscolega
 
 fuentes más grandes
 pedido en orden cronologico
 boton verde enviar pedido siempre abajo (ok)
 letras paginado superior mayores
+
+
+
+
+
+para compilar bundle falló el fichero de la contraseña, y la ruta de los ficheros la he acortado
