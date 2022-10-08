@@ -92,6 +92,7 @@ export const ProductProvider = ({ children}: any) => {
 
         const listadoProductos = await cargaProductos();
         const listadoPedidos = await cargaPedidos();
+
         dispatch( {
             ...stateProductos,
             pedidos: listadoPedidos,

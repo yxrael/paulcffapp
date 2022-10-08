@@ -2,7 +2,9 @@ import { onAuthStateChanged, signInWithEmailAndPassword } from 'firebase/auth';
 import { LoginData, Pedido, UsuarioStorage } from '../interfaces/appInterfaces';
 import { FirebaseAuth, FirebaseDB } from './config';
 import { collection, getDocs, doc, setDoc, DocumentData } from "firebase/firestore";
-import { query, orderBy } from "firebase/firestore";
+
+import { query, orderBy, limit } from "firebase/firestore";
+
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useContext } from 'react';
 import { AuthContext } from '../context/AuthContext';
@@ -101,9 +103,14 @@ export const cargaProductos = async () => {
 export const cargaPedidos = async () => {
 
     try {
-        const querySnapshot = await getDocs(collection(FirebaseDB, "pedidos"));
-        // const ordenados = query(querySnapshot, orderBy('date'));
 
+        const q = query(collection(FirebaseDB, "pedidos"), orderBy('pedidoId', 'desc'));
+        const querySnapshot = await getDocs(q);
+
+        // const querySnapshot = await getDocs(collection(FirebaseDB, "pedidos"));
+        // const querySnapshot2 = query(collection(FirebaseDB, "pedidos"), orderBy('date'));
+    
+        // const ordenados = query(querySnapshot, orderBy('date'));
 
         let listadoPedidos: any = [];
 
@@ -112,6 +119,7 @@ export const cargaPedidos = async () => {
         });
 
         return listadoPedidos;
+    
         
     } catch (error) {
         // console.log(error)

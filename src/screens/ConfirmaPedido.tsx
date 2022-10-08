@@ -1,11 +1,11 @@
 import { useNavigation } from '@react-navigation/native';
-import React, { useContext } from 'react';
+import React from 'react';
 import {Button, Dimensions, StyleSheet, Text, View} from 'react-native';
-import { AuthContext } from '../context/AuthContext';
-import { ProductContext } from '../context/ProductContext';
-import { uniqueId } from '../helpers/creaIDAleatorio';
-import moment from 'moment';
-import { LoadingScreen } from './LoadingScreen';
+// import { AuthContext } from '../context/AuthContext';
+// import { ProductContext } from '../context/ProductContext';
+// import { uniqueId } from '../helpers/creaIDAleatorio';
+// import moment from 'moment';
+// import { LoadingScreen } from './LoadingScreen';
 
 const windowWidth = Dimensions.get('window').width;
 
@@ -13,8 +13,8 @@ export const ConfirmaPedido = ( { route }: any) => {
 
     const navigation = useNavigation<any>();
 
-    const { productos, enviaPedido, status, loadProductosYPedidos } = useContext( ProductContext );
-    const { user } = useContext(AuthContext);
+    // const { productos, enviaPedido, status, loadProductosYPedidos } = useContext( ProductContext );
+    // const { user } = useContext(AuthContext);
 
     // let seleccionShort: any = [];
 
@@ -52,8 +52,6 @@ export const ConfirmaPedido = ( { route }: any) => {
     // }
 
     const handleEnviar = () => {
-
-        console.log('nuevo pedido');
 
         // loadProductosYPedidos();
 

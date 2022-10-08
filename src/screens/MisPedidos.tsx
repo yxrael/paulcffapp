@@ -6,6 +6,8 @@ import { ProductContext } from '../context/ProductContext';
 import { Pedido } from '../interfaces/appInterfaces';
 import { LoginScreen } from './LoginScreen';
 
+import { query, orderBy, limit } from "firebase/firestore";
+
 const windowWidth = Dimensions.get('window').width;
 
 

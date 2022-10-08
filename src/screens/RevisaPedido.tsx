@@ -108,9 +108,6 @@ export const RevisaPedido = () => {
     //     )
     // }
 
-
-
-
     return (
                 
         <View>
