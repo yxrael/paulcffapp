@@ -25,6 +25,7 @@ export const MiCuenta = () => {
                 <Text style={{ paddingBottom: 5}}>Mi Cuenta:</Text>
                 <Text style={{ paddingBottom: 5}}>{ user?.displayName }</Text>
                 <Text style={{ paddingBottom: 5}}>{ user?.uid}</Text>
+                <Text style={{ paddingBottom: 5}}>Tipo de cliente: { user?.photoURL}</Text>
             </View>
             
             <View style={{ 
