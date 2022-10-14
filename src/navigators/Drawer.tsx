@@ -46,69 +46,31 @@ export const MyDrawer = () => {
 
   return (
 
-    <>
-    
-        {
-            ( user?.photoURL !== 'admin')
-            ?
-            (
-                <Drawer.Navigator
+            <Drawer.Navigator
 
-                screenOptions={{
+            screenOptions={{
 
-                    drawerPosition: 'left',
-                    // drawerType: width >= 768 ? 'permanent' : 'front'
-                    headerStyle: {
-                        height: Platform.OS === 'ios' ? 80 : 30
-                    },
-                    // header: () => <Cabecera/>
-                    headerTitleStyle: {
-                        fontSize: 18
-                    }
-                }}
-                drawerContent={ (  ) => <MenuInterno /> } 
+                drawerPosition: 'left',
+                // drawerType: width >= 768 ? 'permanent' : 'front'
+                headerStyle: {
+                    height: Platform.OS === 'ios' ? 80 : 30
+                },
+                // header: () => <Cabecera/>
+                headerTitleStyle: {
+                    fontSize: 18
+                }
+            }}
+            drawerContent={ (  ) => <MenuInterno /> } 
 
-                >
-
-                <Drawer.Screen name="MrChava" component={ListadoCafesStack} />
-                {/* <Drawer.Screen name="Ajustes" component={Ajustes} /> */}
-                <Drawer.Screen name="LoginScreen" component={LoginScreen} />
-                <Drawer.Screen name="MiCuenta" component={MiCuenta} />
-                <Drawer.Screen name="MisPedidos" component={MisPedidos} />
-
-                </Drawer.Navigator>
-            )
-            :
-            (
-                <Drawer.Navigator
-
-                screenOptions={{
-        
-                    drawerPosition: 'left',
-                    // drawerType: width >= 768 ? 'permanent' : 'front'
-                    headerStyle: {
-                        height: Platform.OS === 'ios' ? 80 : 30
-                    },
-                    // header: () => <Cabecera/>
-                    headerTitleStyle: {
-                        fontSize: 18
-                    }
-                }}
-                drawerContent={ (  ) => <MenuInternoAdmin /> } 
-                
             >
-        
+
             <Drawer.Screen name="MrChava" component={ListadoCafesStack} />
             {/* <Drawer.Screen name="Ajustes" component={Ajustes} /> */}
             <Drawer.Screen name="LoginScreen" component={LoginScreen} />
             <Drawer.Screen name="MiCuenta" component={MiCuenta} />
             <Drawer.Screen name="MisPedidos" component={MisPedidos} />
-        
-            </Drawer.Navigator> 
-            )
-        }
-    
-    </>
+
+            </Drawer.Navigator>  
 
   );
 }
@@ -116,6 +78,7 @@ export const MyDrawer = () => {
 const MenuInterno = (  ) => {
 
     const navigation = useNavigation<any>();
+    const { user } = useContext(AuthContext);
     // const { status } = useContext( AuthContext );
 
     return (
@@ -150,7 +113,9 @@ const MenuInterno = (  ) => {
                         name='calendar-outline'
                         size={30}
                     />
-                    <Text style={{ marginLeft: 20, marginBottom: 30, fontSize: 17}}>Mis Pedidos</Text>
+                    <Text style={{ marginLeft: 20, marginBottom: 30, fontSize: 17}}>{
+                        ( user?.photoURL === 'admin') ? 'Lista Pedidos' : 'Mis Pedidos'
+                        }</Text>
                 </TouchableOpacity>
 
                 <TouchableOpacity 
@@ -192,82 +157,3 @@ const MenuInterno = (  ) => {
     )
 }
 
-const MenuInternoAdmin = (  ) => {
-
-    const navigation = useNavigation<any>();
-    // const { status } = useContext( AuthContext );
-
-    return (
-
-        <DrawerContentScrollView>
-            <View style={{ marginTop: 80, marginLeft: 20}}>
-
-                <FadeInImage 
-                    uri='https://mrchava.es/wp-content/uploads/2021/01/cropped-LOGO2.jpg'
-                    style={{
-                        height: 80,
-                        width: 200,
-                        marginVertical: 50
-                    }}
-                />
-                <Text>MENU ADMINISTRADOR</Text>
-                <TouchableOpacity 
-                    style={{ flexDirection: 'row'}}
-                    onPress={ () => navigation.navigate( 'MrChava' )}     
-                >
-                    <Ionicons 
-                        name='cafe-outline'
-                        size={30}
-                    />
-                    <Text style={{ marginLeft: 20, marginBottom: 30, fontSize: 17}}>Listado Cafés</Text>
-                </TouchableOpacity>
-
-                <TouchableOpacity 
-                    style={{ flexDirection: 'row'}}
-                    onPress={ () => navigation.navigate( 'MisPedidos' )}     
-                >
-                    <Ionicons 
-                        name='calendar-outline'
-                        size={30}
-                    />
-                    <Text style={{ marginLeft: 20, marginBottom: 30, fontSize: 17}}>Mis Pedidos</Text>
-                </TouchableOpacity>
-
-                <TouchableOpacity 
-                    style={{ flexDirection: 'row'}}
-                    onPress={ () => navigation.navigate('MiCuenta')
-                    }     
-                >
-                    <Ionicons 
-                        name='person-outline'
-                        size={30}
-                    />
-                    <Text style={{ marginLeft: 20, fontSize: 17, marginBottom: 30}}>Mi cuenta</Text>
-                </TouchableOpacity>
-
-                {/* <TouchableOpacity 
-                    style={{ flexDirection: 'row'}}
-                    onPress={ () => navigation.navigate('Ajustes')}     
-                >
-                    <Ionicons 
-                        name='options-outline'
-                        size={30}
-                    />
-                    <Text style={{ marginLeft: 20, fontSize: 17, marginBottom: 30}}>Ajustes</Text>
-                </TouchableOpacity> */}
-
-                <TouchableOpacity 
-                    style={{ flexDirection: 'row'}}
-                    onPress={ () => navigation.goBack() }    
-                >
-                    <Ionicons 
-                        name='arrow-undo-outline'
-                        size={30}
-                    />
-                    <Text style={{ marginLeft: 20, fontSize: 17}}>Volver</Text>
-                </TouchableOpacity>
-                
-            </View>
-        </DrawerContentScrollView>
-    )
-}

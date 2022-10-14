@@ -8,20 +8,30 @@ import { AuthContext } from '../context/AuthContext';
 import { ProductContext } from '../context/ProductContext';
 import { LoadingScreen } from './LoadingScreen';
 import { LoginScreen } from './LoginScreen';
+import { Producto } from '../interfaces/appInterfaces';
 
 //v31.08
 
 export const ListadoCafesDescafeinados = () => {
 
+    let listaDescafeinados: Producto[] = []
+
     const { user } = useContext(AuthContext);
     const { productos, status } = useContext(ProductContext);
     const navigation = useNavigation<any>();
 
-    const listaDescafeinados = productos.filter( 
-        cafe => cafe.descafeinado === true 
-        && cafe.disponible === true 
-        && cafe.tipoCliente === user?.photoURL
-        );
+    if( user?.photoURL === 'admin'){
+        listaDescafeinados = productos.filter( 
+            cafe => cafe.descafeinado === true
+            );
+
+    } else {
+        listaDescafeinados = productos.filter( 
+            cafe => cafe.disponible === true 
+            && cafe.descafeinado === true
+            && cafe.tipoCliente === user?.photoURL
+            );
+    }
 
 
     // if ( status !== 'authenticated'){
@@ -69,7 +79,12 @@ export const ListadoCafesDescafeinados = () => {
                 elevation: 3,
                 }}>
             <View>
-            <Ionicons name='chevron-forward-outline' size={35} color='#808000'/>
+            <Ionicons 
+                name={
+                    ( user?.photoURL === 'admin') ? 'add-outline' : 'chevron-forward-outline'
+                }
+                    size={35} color='#808000'
+            />
 
                 {/* <Text style={{ fontWeight: 'bold' }}>OK</Text> */}
             </View>
@@ -121,43 +136,9 @@ export const ListadoCafesDescafeinados = () => {
                 ListFooterComponent={ <View style={{height: 200}}/>}
             />
 
-            
-
-            
-            
-
         </View>
 
-        <TouchableOpacity 
-                activeOpacity={ 0.8 }
-                onPress={ handleNext }
-                style={{
-                position: 'absolute',
-                zIndex: 9999,
-                backgroundColor: '#9ACD32',
-                height: 50,
-                width: 50,
-                bottom: 30,
-                right: 5,
-                borderRadius: 100,
-                justifyContent: 'center',
-                alignItems: 'center',
-                shadowColor: "#000",
-                shadowOffset: {
-                    width: 0,
-                    height: 1,
-                },
-                shadowOpacity: 0.22,
-                shadowRadius: 2.22,
-                
-                elevation: 3,
-                }}>
-            <View>
-            <Ionicons name='chevron-forward-outline' size={35} color='#808000'/>
-
-                {/* <Text style={{ fontWeight: 'bold' }}>OK</Text> */}
-            </View>
-        </TouchableOpacity>
     </View>
+ 
     );
 }

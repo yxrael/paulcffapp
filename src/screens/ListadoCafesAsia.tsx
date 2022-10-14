@@ -8,21 +8,32 @@ import { AuthContext } from '../context/AuthContext';
 import { ProductContext } from '../context/ProductContext';
 import { LoadingScreen } from './LoadingScreen';
 import { LoginScreen } from './LoginScreen';
+import { Producto } from '../interfaces/appInterfaces';
 
 //v31.08
 
 export const ListadoCafesAsia = () => {
 
+    let listaAsia: Producto[] = []
+
     const { user } = useContext(AuthContext);
     const { productos, status } = useContext(ProductContext);
     const navigation = useNavigation<any>();
 
-    const listaAsia = productos.filter( 
-        cafe => cafe.continente === 'ASIA' 
-        && cafe.disponible === true 
-        && cafe.descafeinado === false
-        && cafe.tipoCliente === user?.photoURL
-        );
+    if( user?.photoURL === 'admin'){
+        listaAsia = productos.filter( 
+            cafe => cafe.continente === 'ASIA' 
+            && cafe.descafeinado === false
+            );
+
+    } else {
+        listaAsia = productos.filter( 
+            cafe => cafe.continente === 'ASIA' 
+            && cafe.disponible === true 
+            && cafe.descafeinado === false
+            && cafe.tipoCliente === user?.photoURL
+            );
+    }
 
 
     // if ( status !== 'authenticated'){
@@ -42,13 +53,19 @@ export const ListadoCafesAsia = () => {
         navigation.jumpTo('Africa');
     }
 
+    const handleNew = () => {
+        console.log('NUEVO CAFÉ');
+    }
+
     return (
 
         <View style={{ flex: 1}}>
 
         <TouchableOpacity 
                 activeOpacity={ 0.8 }
-                onPress={ handleNext }
+                onPress={ 
+                    ( user?.photoURL === 'admin') ? handleNew : handleNext
+            }
                 style={{
                 position: 'absolute',
                 zIndex: 9999,
@@ -71,9 +88,12 @@ export const ListadoCafesAsia = () => {
                 elevation: 3,
                 }}>
             <View>
-            <Ionicons name='chevron-forward-outline' size={35} color='#808000'/>
-
-                {/* <Text style={{ fontWeight: 'bold' }}>OK</Text> */}
+            <Ionicons 
+                name={
+                    ( user?.photoURL === 'admin') ? 'add-outline' : 'chevron-forward-outline'
+                }
+                    size={35} color='#808000'
+            />
             </View>
         </TouchableOpacity>
 

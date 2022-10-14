@@ -9,6 +9,7 @@ import { ProductContext } from '../context/ProductContext';
 import { Producto } from '../interfaces/appInterfaces';
 import { LoginScreen } from './LoginScreen';
 import { LoadingScreen } from './LoadingScreen';
+import { CafeIndividualAdmin } from '../components/CafeIndividualAdmin';
 
 //v31.08
 
@@ -16,16 +17,28 @@ import { LoadingScreen } from './LoadingScreen';
 
 export const ListadoCafesAmerica = ( ) => {
 
+    let listaAmerica: Producto[] = []
+
     const { user } = useContext(AuthContext);
     const { productos, status } = useContext(ProductContext);
     const navigation = useNavigation<any>();
 
-    const listaAmerica = productos.filter( 
-        cafe => cafe.continente === 'AMERICA' 
-        && cafe.disponible === true 
-        && cafe.descafeinado === false
-        && cafe.tipoCliente === user?.photoURL
-        );
+    if( user?.photoURL === 'admin'){
+        listaAmerica = productos.filter( 
+            cafe => cafe.continente === 'AMERICA' 
+            && cafe.descafeinado === false
+            );
+
+    } else {
+        listaAmerica = productos.filter( 
+            cafe => cafe.continente === 'AMERICA' 
+            && cafe.disponible === true 
+            && cafe.descafeinado === false
+            && cafe.tipoCliente === user?.photoURL
+            );
+    }
+
+    
 
     // if ( status !== 'authenticated'){
     //     return (
@@ -44,13 +57,19 @@ export const ListadoCafesAmerica = ( ) => {
         navigation.jumpTo('Asia');
     }
 
+    const handleNew = () => {
+        console.log('NUEVO CAFÉ');
+    }
+
     return (
 
         <View style={{ flex: 1}}>
 
         <TouchableOpacity 
                 activeOpacity={ 0.8 }
-                onPress={ handleNext }
+                onPress={ 
+                        ( user?.photoURL === 'admin') ? handleNew : handleNext
+                }
                 style={{
                 position: 'absolute',
                 zIndex: 9999,
@@ -73,7 +92,12 @@ export const ListadoCafesAmerica = ( ) => {
                 elevation: 3,
                 }}>
             <View>
-                <Ionicons name='chevron-forward-outline' size={35} color='#808000'/>
+                <Ionicons 
+                    name={
+                        ( user?.photoURL === 'admin') ? 'add-outline' : 'chevron-forward-outline'
+                    }
+                     size={35} color='#808000'
+                />
             </View>
         </TouchableOpacity>
 
@@ -91,62 +115,66 @@ export const ListadoCafesAmerica = ( ) => {
             }}
         />
 
-        {/* <TouchableOpacity 
-                activeOpacity={ 0.8 }
-                onPress={ handleNext }
-                style={{
-                position: 'absolute',
-                zIndex: 9999,
-                backgroundColor: '#9ACD32',
-                height: 50,
-                width: 50,
-                bottom: 30,
-                right: 5,
-                borderRadius: 100,
-                justifyContent: 'center',
-                alignItems: 'center',
-                shadowColor: "#000",
-                shadowOffset: {
-                    width: 0,
-                    height: 1,
-                },
-                shadowOpacity: 0.22,
-                shadowRadius: 2.22,
-                
-                elevation: 3,
-                }}>
-            <View>
-                <Ionicons name='chevron-forward-outline' size={35} color='#808000'/>
-            </View>
-        </TouchableOpacity> */}
 
         <View style={{ marginHorizontal: 20}}>
             {/* <Text>LISTADO CAFES</Text>
             <Text>{ user?.uid }</Text> */}
+
+            {
+                (user?.photoURL === 'admin')?
+                (
+                <FlatList 
+                    data={ listaAmerica }
+                    renderItem={ ( {item} ) => (
+                    <CafeIndividualAdmin
+                        nombre={ item.nombre }
+                        pais={ item.pais }
+                        precio={ item.precio }
+                        cantidad={ item.cantidad }
+                        continente={ item.continente }
+                        descafeinado={ item.descafeinado }
+                        infoExtra={ item.infoExtra }
+                        proceso={ item.proceso }
+                        puntos={ item.puntos }
+                        rutaURL={ item.rutaURL }
+                        disponible={ item.disponible }
+                        tipoCliente={ item.tipoCliente }
+                        id={ item.id}
+                    />)}
+                    keyExtractor={ item => String(item.id) }
+                    showsVerticalScrollIndicator={ false }
+                    ListFooterComponent={ <View style={{height: 200}}/>}
+                />
+                ):
+                (
+                <FlatList 
+                    data={ listaAmerica }
+                    renderItem={ ( {item} ) => (
+                    <CafeIndividual 
+                        nombre={ item.nombre }
+                        pais={ item.pais }
+                        precio={ item.precio }
+                        cantidad={ item.cantidad }
+                        continente={ item.continente }
+                        descafeinado={ item.descafeinado }
+                        infoExtra={ item.infoExtra }
+                        proceso={ item.proceso }
+                        puntos={ item.puntos }
+                        rutaURL={ item.rutaURL }
+                        disponible={ item.disponible }
+                        tipoCliente={ item.tipoCliente }
+                        id={ item.id}
+                    />)}
+                    keyExtractor={ item => String(item.id) }
+                    showsVerticalScrollIndicator={ false }
+                    ListFooterComponent={ <View style={{height: 200}}/>}
+                />
+                )
+
+            }
             
 
-            <FlatList 
-                data={ listaAmerica }
-                renderItem={ ( {item} ) => (
-                <CafeIndividual 
-                    nombre={ item.nombre }
-                    pais={ item.pais }
-                    precio={ item.precio }
-                    cantidad={ item.cantidad }
-                    continente={ item.continente }
-                    descafeinado={ item.descafeinado }
-                    infoExtra={ item.infoExtra }
-                    proceso={ item.proceso }
-                    puntos={ item.puntos }
-                    rutaURL={ item.rutaURL }
-                    disponible={ item.disponible }
-                    tipoCliente={ item.tipoCliente }
-                    id={ item.id}
-                />)}
-                keyExtractor={ item => String(item.id) }
-                showsVerticalScrollIndicator={ false }
-                ListFooterComponent={ <View style={{height: 200}}/>}
-            />
+            
         </View>
     </View>
     );
