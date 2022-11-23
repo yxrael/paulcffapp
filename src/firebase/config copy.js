@@ -4,13 +4,13 @@ import { getFirestore, initializeFirestore } from 'firebase/firestore';
 
 
 const firebaseConfig = {
-    apiKey: "AIzaSyAnIiiRniDTp9NOHvsCIRqfMLsN8xgU-P8",
-    authDomain: "paulcff-d427c.firebaseapp.com",
-    projectId: "paulcff-d427c",
-    storageBucket: "paulcff-d427c.appspot.com",
-    messagingSenderId: "111680108168",
-    appId: "1:111680108168:web:6bef6b3e8a4f55c438d13d",
-    measurementId: "G-519G5DHT4W"
+    apiKey: "AIzaSyAqvi-nOjXIENfyto3VaZxwug-Rj7sc5js",
+    authDomain: "chavapro-9a967.firebaseapp.com",
+    projectId: "chavapro-9a967",
+    storageBucket: "chavapro-9a967.appspot.com",
+    messagingSenderId: "705461988689",
+    appId: "1:705461988689:web:2ad708cf6ec30c47367770",
+    measurementId: "G-BV05K7C3S0"
   };
 
 
